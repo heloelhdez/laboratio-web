@@ -11,7 +11,7 @@ import os
 import jinja2
 
 from models import Empresa, Servicio, Introduccion
-from models import Team, Acerca
+from models import Team, Acerca, Caracteristica
 
 jinja_env = jinja2.Environment(
  loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -315,6 +315,6 @@ app = webapp2.WSGIApplication([
     ('/adminintroduccion', AdminIntroduccionHandler),
     ('/getacerca', GetAcercaHandler),
     ('/adminacerca', AdminAcercaHandler),
-    ('/getacaracteristica', GetCaracteristicaHandler),
-    ('/adminacaracteristica', AdminCaracteristicaHandler),
+    ('/getcaracteristica', GetCaracteristicaHandler),
+    ('/admincaracteristica', AdminCaracteristicaHandler),
 ], debug = True)

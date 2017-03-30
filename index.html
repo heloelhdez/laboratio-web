@@ -43,11 +43,11 @@
    ================================================== -->	
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:700,400' rel='stylesheet' type='text/css'>
 <script type="text/javascript">
-
+sessionStorage.empresa = "kubeet";
 function getData() 
 {
 
-	sessionStorage.empresa = "kubeet";
+	
 
     jQuery.support.cors = true;
     try
@@ -76,7 +76,7 @@ function getData()
                         "<h5>" + tweet.nombre + "</h5>" +
                         "<a href=" + tweet.urlImage + "> descargar </a>" +
                         "</div>" +
-                        "</div>" 
+                        "</div>";
                        $("#divTeam").append(nombre);
                 });
 	   
@@ -89,13 +89,83 @@ function getData()
       alert("error : " +  e);
      }
 }
+function getData2() 
+{
 
+    jQuery.support.cors = true;
+    try
+    {                         
+     $.ajax({
+        url: "http://localhost:8080/getintroduccion",
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: true,
+        data: {empresa: sessionStorage.empresa},                         
+        type: 'get',
+        crossDomain: true,
+        success: function(response) {
+	  tweets = response;
+          //alert(response);
+          console.log(tweets.pop());
+
+          tweets.forEach(function (tweet) 
+          {
+             var nombre = "<div class='col-md-offset-2 col-md-8 col-sm-12'>"+
+             "<h1>Introduction</h1>"+
+             "<h2 class='wow bounceIn'>" + tweet.nombre + "</h2>"+"<p class='wow fadeIn' data-wow-delay='0.3s'>" + tweet.descripcion + "</p><a href='#about' class='btn btn-default section-btn smoothScroll wow fadeInUp' data-wow-delay='0.6s'>Conoce mas</a><a href='#portfolio' class='btn btn-danger section-btn smoothScroll wow fadeInUp hidden-xs' data-wow-delay='0.6s'>Ver portafolio</a></div>";
+                       $("#divIntroduccion").append(nombre);
+                });
+	   
+ 	 }
+        });          
+     
+    }
+ catch(e)
+    {
+      alert("error : " +  e);
+     }
+}
+function getData3() 
+{
+
+    jQuery.support.cors = true;
+    try
+    {                         
+     $.ajax({
+        url: "http://localhost:8080/getacerca",
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: true,
+        data: {empresa: sessionStorage.empresa},                         
+        type: 'get',
+        crossDomain: true,
+        success: function(response) {
+	  tweets = response;
+          //alert(response);
+          tweets.forEach(function (tweet) 
+          {
+
+             var nombre = "<div class='col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 text-center'><div class='section-title'><h5>ABOUT US</h5><h3>"+tweet.nombre+"</h3><p>"+tweet.descripcion+"</p></div></div>";
+             $("#divAcerca").append(nombre);
+                });
+	   
+ 	 }
+        });          
+     
+    }
+ catch(e)
+    {
+      alert("error : " +  e);
+     }
+}
 
 </script>
 	
 </head>
 
-<body onload="getData()" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+<body onload="getData(),getData2(),getData3()" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
 
 <!-- Preloader section
@@ -142,7 +212,7 @@ function getData()
 ================================================== -->
 <section id="home" class="parallax-section">
 	<div class="container">
-		<div class="row">
+		<div class="row" id="divIntroduccion">
 
 			<div class="col-md-offset-2 col-md-8 col-sm-12">
 				<h1>Introduction</h1>
@@ -161,7 +231,7 @@ function getData()
 ================================================== -->
 <section id="about" class="parallax-section">
 	<div class="container">
-		<div class="row">
+		<div class="row" id="divAcerca">
 
 			<!-- Section title
 			================================================== -->
@@ -172,8 +242,8 @@ function getData()
 					<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur dolor libero sodales vitae elit massa. Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque.</p>
 				</div>
 			</div>	
-
-
+		</div>
+		<div class="row" >
 
 			<div class="col-md-4 col-sm-4">
 				<i class="icon icon-laptop wow fadeInUp" data-wow-delay="0.9s"></i>
