@@ -68,28 +68,6 @@ class EmpresaList(messages.Message):
 #es necesario el repeated para que sea lista
     data = messages.MessageField(EmpresaUpdate, 2, repeated=True)
 
-######Servicio########
-class ServicioInput(messages.Message):
-    token = messages.StringField(1, required=True) 
-    codigo_servicio = messages.StringField(2)
-    nombre_servicio = messages.StringField(3)
-
-
-class ServicioUpdate(messages.Message):
-    token = messages.StringField(1, required=True)
-    entityKey = messages.StringField(2, required=True)
-    codigo_servicio = messages.StringField(3)
-    nombre_servicio = messages.StringField(4)
-
-#regresa una lista para la base de datos Empresa
-class ServicioList(messages.Message):
-    code = messages.IntegerField(1)
-#regresa mensaje de lo ocurrido
-#mensaje de tipo MENSAJEFIELD que regresa una lista de tipo EmpresaUpdate
-#es necesario el repeated para que sea lista
-    data = messages.MessageField(ServicioUpdate, 2, repeated=True)
-
-
 ######Team########
 
 #Mensaje de Entrada y Salida para la base de datos Team
@@ -115,6 +93,110 @@ class TeamList(messages.Message):
 #mensaje de tipo MENSAJEFIED que regresa una lista de tipo TeamUpdate
 #es necesario el repeated para que sea lista
     data = messages.MessageField(TeamUpdate, 2, repeated=True)
+
+######Servicio########
+
+#Mensaje de Entrada y Salida para la base de datos Team
+class ServicioInput(messages.Message):
+    token = messages.StringField(1, required=True) 
+    nombre = messages.StringField(2)
+    descripcion = messages.StringField(3)
+    urlImage = messages.StringField(5)
+
+    
+class ServicioUpdate(messages.Message):
+    token = messages.StringField(1, required=True)
+    #empresa_key = messages.StringField(2, required=True)
+    entityKey = messages.StringField(2, required=True)
+    nombre = messages.StringField(3)
+    descripcion = messages.StringField(4)
+    urlImage = messages.StringField(5)
+
+#regresa una lista para la base de datos Empresa
+class ServicioList(messages.Message):
+    code = messages.IntegerField(1)
+#regresa mensaje de lo ocurrido
+#mensaje de tipo MENSAJEFIED que regresa una lista de tipo TeamUpdate
+#es necesario el repeated para que sea lista
+    data = messages.MessageField(ServicioUpdate, 2, repeated=True)
+
+######Introduccion########
+
+#Mensaje de Entrada y Salida para la base de datos Team
+class IntroduccionInput(messages.Message):
+    token = messages.StringField(1, required=True) 
+    nombre = messages.StringField(2)
+    descripcion = messages.StringField(3)
+    urlImage = messages.StringField(5)
+
+    
+class IntroduccionUpdate(messages.Message):
+    token = messages.StringField(1, required=True)
+    #empresa_key = messages.StringField(2, required=True)
+    entityKey = messages.StringField(2, required=True)
+    nombre = messages.StringField(3)
+    descripcion = messages.StringField(4)
+    urlImage = messages.StringField(5)
+
+#regresa una lista para la base de datos Empresa
+class IntroduccionList(messages.Message):
+    code = messages.IntegerField(1)
+#regresa mensaje de lo ocurrido
+#mensaje de tipo MENSAJEFIED que regresa una lista de tipo TeamUpdate
+#es necesario el repeated para que sea lista
+    data = messages.MessageField(IntroduccionUpdate, 2, repeated=True)
+
+######Acerca########
+
+#Mensaje de Entrada y Salida para la base de datos Team
+class AcercaInput(messages.Message):
+    token = messages.StringField(1, required=True) 
+    nombre = messages.StringField(2)
+    descripcion = messages.StringField(3)
+    urlImage = messages.StringField(5)
+
+    
+class AcercaUpdate(messages.Message):
+    token = messages.StringField(1, required=True)
+    #empresa_key = messages.StringField(2, required=True)
+    entityKey = messages.StringField(2, required=True)
+    nombre = messages.StringField(3)
+    descripcion = messages.StringField(4)
+    urlImage = messages.StringField(5)
+
+#regresa una lista para la base de datos Empresa
+class AcercaList(messages.Message):
+    code = messages.IntegerField(1)
+#regresa mensaje de lo ocurrido
+#mensaje de tipo MENSAJEFIED que regresa una lista de tipo TeamUpdate
+#es necesario el repeated para que sea lista
+    data = messages.MessageField(AcercaUpdate, 2, repeated=True)
+
+######Caracteristica########
+
+#Mensaje de Entrada y Salida para la base de datos Team
+class CaracteristicaInput(messages.Message):
+    token = messages.StringField(1, required=True) 
+    nombre = messages.StringField(2)
+    descripcion = messages.StringField(3)
+    urlImage = messages.StringField(5)
+
+    
+class CaracteristicaUpdate(messages.Message):
+    token = messages.StringField(1, required=True)
+    #empresa_key = messages.StringField(2, required=True)
+    entityKey = messages.StringField(2, required=True)
+    nombre = messages.StringField(3)
+    descripcion = messages.StringField(4)
+    urlImage = messages.StringField(5)
+
+#regresa una lista para la base de datos Empresa
+class CaracteristicaList(messages.Message):
+    code = messages.IntegerField(1)
+#regresa mensaje de lo ocurrido
+#mensaje de tipo MENSAJEFIED que regresa una lista de tipo TeamUpdate
+#es necesario el repeated para que sea lista
+    data = messages.MessageField(CaracteristicaUpdate, 2, repeated=True)
 
     
 # Output messages

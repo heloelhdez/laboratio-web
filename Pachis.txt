@@ -1,0 +1,5 @@
+El tiempo maximo es el viernes a las 10am, con la condicion de que cumplas con el 100% de la rubrica que nos dio el profesor, esta en esta carpeta y se llama lab_web_rubrica_parcial2.pdf.
+Este proyecto ya tiene los servicios, falta verificar que funcione bien el get y la rest api, y faltan los administradores para subir los cambios y todos los demas puntos.
+Lo que sirve, sirve team, osea el servicio team, la rest api con el get, tambien su administrador por el que suben los datos y ya se ven en la template lo que se sube, a este le falta el elimina, pero ya se visualiza en la template, no borres cosas de la template, sino que se agrega lo que haces dinamicamente, lo que hay ahorita tambien es el login de una empresa, y de ahi te lleva a una pagina con botones que te lleva a los administradores.
+
+Neta, revisa cada punto!!!! Yo tambien lo hare, por favor!! Ya te pase lo que quedamos y lo que tu me pasaste antes la neta esta bien mal! El profe me dijo que es una porqueria y no tenia ni un solo punto cumplido. Apenas y me quiso dar mas tiempo. Rifate, yo ya me rife!!

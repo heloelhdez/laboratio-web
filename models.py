@@ -29,19 +29,7 @@ class Empresa(CustomBaseModel):
         #empresa.empresa_key=empresakey #inserta el entityKey de la empresa que es un parametro que se manda en main.py
         empresa.put()#inserta o hace un update depende del main.py
         return 0
-## servicio
-class Servicio(CustomBaseModel):
-    _message_fields_schema = ('entityKey', 'codigo_servicio', 'nombre_servicio')
-    codigo_servicio = ndb.StringProperty()
-    nombre_servicio = ndb.StringProperty()
-    
-       ###Servicio####
-    def servicio_m(self, data):
-        servicio = Servicio()#Crea una variable de tipo Base de datos
-        servicio.populate(data)#Llena la variables con los datos dados por el request en main.py
-        #empresa.empresa_key=empresakey #inserta el entityKey de la empresa que es un parametro que se manda en main.py
-        servicio.put()#inserta o hace un update depende del main.py
-        return 0
+
 
 
 #####USUARIOS#########
@@ -110,12 +98,6 @@ if validarEmail("root@kubeet.com") == False:
     admin.hash_password()
     admin.put()
 
-
-
-
-
-
-
 ######### Team #########
 
 class Team(CustomBaseModel):
@@ -133,3 +115,72 @@ class Team(CustomBaseModel):
         team.put()#inserta o hace un update depende del main.py
         return 0
 
+######### Servicio #########
+
+class Servicio(CustomBaseModel):
+    _message_fields_schema = ('entityKey', 'nombre', 'descripcion', 'urlImage')
+    empresa_key = ndb.KeyProperty(kind=Empresa)
+    nombre = ndb.StringProperty()
+    descripcion = ndb.StringProperty()
+    urlImage = ndb.StringProperty()
+ 
+    ### Servicio ####
+    def servicio_m(self, data, empresa_key):
+        servicio  = Servicio()#Crea una variable de tipo Base de datos
+        servicio.populate(data)#Llena la variables con los datos dados por el request en main.py
+        servicio.empresa_key=empresa_key#inserta el entityKey de la empresa que es un parametro que se manda en main.py
+        servicio.put()#inserta o hace un update depende del main.py
+        return 0
+
+
+####### Introduccion #########
+
+class Introduccion(CustomBaseModel):
+    _message_fields_schema = ('entityKey', 'nombre', 'descripcion', 'urlImage')
+    empresa_key = ndb.KeyProperty(kind=Empresa)
+    nombre = ndb.StringProperty()
+    descripcion = ndb.StringProperty()
+    urlImage = ndb.StringProperty()
+ 
+    ### Intro ####
+    def introduccion_m(self, data, empresa_key):
+        introduccion  = Introduccion()#Crea una variable de tipo Base de datos
+        introduccion.populate(data)#Llena la variables con los datos dados por el request en main.py
+        introduccion.empresa_key=empresa_key#inserta el entityKey de la empresa que es un parametro que se manda en main.py
+        introduccion.put()#inserta o hace un update depende del main.py
+        return 0
+
+
+####### Acerca #########
+
+class Acerca(CustomBaseModel):
+    _message_fields_schema = ('entityKey', 'nombre', 'descripcion', 'urlImage')
+    empresa_key = ndb.KeyProperty(kind=Empresa)
+    nombre = ndb.StringProperty()
+    descripcion = ndb.StringProperty()
+    urlImage = ndb.StringProperty()
+ 
+    ### Acerca ####
+    def acerca_m(self, data, empresa_key):
+        acerca  = Acerca()#Crea una variable de tipo Base de datos
+        acerca.populate(data)#Llena la variables con los datos dados por el request en main.py
+        acerca.empresa_key=empresa_key#inserta el entityKey de la empresa que es un parametro que se manda en main.py
+        acerca.put()#inserta o hace un update depende del main.py
+        return 0
+
+####### Caracteristica #########
+
+class Caracteristica(CustomBaseModel):
+    _message_fields_schema = ('entityKey', 'nombre', 'descripcion', 'urlImage')
+    empresa_key = ndb.KeyProperty(kind=Empresa)
+    nombre = ndb.StringProperty()
+    descripcion = ndb.StringProperty()
+    urlImage = ndb.StringProperty()
+ 
+    ### Acerca ####
+    def caracteristica_m(self, data, empresa_key):
+        caracteristica  = Caracteristica()#Crea una variable de tipo Base de datos
+        caracteristica.populate(data)#Llena la variables con los datos dados por el request en main.py
+        caracteristica.empresa_key=empresa_key#inserta el entityKey de la empresa que es un parametro que se manda en main.py
+        caracteristica.put()#inserta o hace un update depende del main.py
+        return 0

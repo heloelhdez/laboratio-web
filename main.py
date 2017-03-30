@@ -10,8 +10,8 @@ import json
 import os
 import jinja2
 
-from models import Empresa
-from models import Team
+from models import Empresa, Servicio, Introduccion
+from models import Team, Acerca
 
 jinja_env = jinja2.Environment(
  loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -47,7 +47,97 @@ class GetTeamHandler(webapp2.RequestHandler):
      json_string = json.dumps(myList, default=MyClass)
      self.response.write(json_string)
 
+class GetServicioHandler(webapp2.RequestHandler):
 
+    def get(self):
+     self.response.headers.add_header('Access-Control-Allow-Origin', '*')
+     self.response.headers['Content-Type'] = 'application/json'
+
+     id_empresa = self.request.get('empresa')
+     objemp = Empresa.query(Empresa.codigo_empresa == id_empresa).get()
+     strKey = objemp.key.urlsafe() 
+     myEmpKey = ndb.Key(urlsafe=strKey) 
+     myServicio = Servicio.query(Servicio.empresa_key == myEmpKey)
+
+     myList = []
+     for i in myServicio:
+      myObj = DemoClass()
+      myObj.nombre = i.nombre
+      myObj.descripcion = i.descripcion
+      myObj.urlImage = i.urlImage
+      myList.append(myObj)
+       
+     json_string = json.dumps(myList, default=MyClass)
+     self.response.write(json_string)
+
+class GetIntroduccionHandler(webapp2.RequestHandler):
+
+    def get(self):
+     self.response.headers.add_header('Access-Control-Allow-Origin', '*')
+     self.response.headers['Content-Type'] = 'application/json'
+
+     id_empresa = self.request.get('empresa')
+     objemp = Empresa.query(Empresa.codigo_empresa == id_empresa).get()
+     strKey = objemp.key.urlsafe() 
+     myEmpKey = ndb.Key(urlsafe=strKey) 
+     myIntroduccion = Introduccion.query(Introduccion.empresa_key == myEmpKey)
+
+     myList = []
+     for i in myIntroduccion:
+      myObj = DemoClass()
+      myObj.nombre = i.nombre
+      myObj.descripcion = i.descripcion
+      myObj.urlImage = i.urlImage
+      myList.append(myObj)
+       
+     json_string = json.dumps(myList, default=MyClass)
+     self.response.write(json_string)
+
+class GetAcercaHandler(webapp2.RequestHandler):
+
+    def get(self):
+     self.response.headers.add_header('Access-Control-Allow-Origin', '*')
+     self.response.headers['Content-Type'] = 'application/json'
+
+     id_empresa = self.request.get('empresa')
+     objemp = Empresa.query(Empresa.codigo_empresa == id_empresa).get()
+     strKey = objemp.key.urlsafe() 
+     myEmpKey = ndb.Key(urlsafe=strKey) 
+     myAcerca = Acerca.query(Acerca.empresa_key == myEmpKey)
+
+     myList = []
+     for i in myAcerca:
+      myObj = DemoClass()
+      myObj.nombre = i.nombre
+      myObj.descripcion = i.descripcion
+      myObj.urlImage = i.urlImage
+      myList.append(myObj)
+       
+     json_string = json.dumps(myList, default=MyClass)
+     self.response.write(json_string)
+
+class GetCaracteristicaHandler(webapp2.RequestHandler):
+
+    def get(self):
+     self.response.headers.add_header('Access-Control-Allow-Origin', '*')
+     self.response.headers['Content-Type'] = 'application/json'
+
+     id_empresa = self.request.get('empresa')
+     objemp = Empresa.query(Empresa.codigo_empresa == id_empresa).get()
+     strKey = objemp.key.urlsafe() 
+     myEmpKey = ndb.Key(urlsafe=strKey) 
+     myCaracteristica = Caracteristica.query(Caracteristica.empresa_key == myEmpKey)
+
+     myList = []
+     for i in myCaracteristica:
+      myObj = DemoClass()
+      myObj.nombre = i.nombre
+      myObj.descripcion = i.descripcion
+      myObj.urlImage = i.urlImage
+      myList.append(myObj)
+       
+     json_string = json.dumps(myList, default=MyClass)
+     self.response.write(json_string)
 
 ###########################################################################     
 
@@ -119,21 +209,7 @@ class MenuHandler(webapp2.RequestHandler):
 
     template = jinja_env.get_template(template_name)
     return template.render(context)
-class MenuHandler(webapp2.RequestHandler):
-
-   def get(self):
-
-    template_context = {}
-    self.response.out.write(
-      self._render_template('menu.html', template_context))
-
-   def _render_template(self, template_name, context=None):
-    if context is None:
-     context = {}
-
-    template = jinja_env.get_template(template_name)
-    return template.render(context)
-
+    
 class AdminHandler(webapp2.RequestHandler):
 
    def get(self):
@@ -149,6 +225,65 @@ class AdminHandler(webapp2.RequestHandler):
     template = jinja_env.get_template(template_name)
     return template.render(context)
 
+class AdminServicioHandler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('servicio.html', template_context))
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
+
+class AdminIntroduccionHandler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('introduccion.html', template_context))
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
+
+class AdminAcercaHandler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('acerca.html', template_context))
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
+
+class AdminCaracteristicaHandler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('caracteristica.html', template_context))
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
 
 class MainHandler(webapp2.RequestHandler):
 
@@ -174,4 +309,12 @@ app = webapp2.WSGIApplication([
     ('/up', UpHandler),
     ('/getteam', GetTeamHandler),
     ('/menu', MenuHandler),
+    ('/getservicio', GetServicioHandler),
+    ('/adminservicio', AdminServicioHandler),
+    ('/getintroduccion', GetIntroduccionHandler),
+    ('/adminintroduccion', AdminIntroduccionHandler),
+    ('/getacerca', GetAcercaHandler),
+    ('/adminacerca', AdminAcercaHandler),
+    ('/getacaracteristica', GetCaracteristicaHandler),
+    ('/adminacaracteristica', AdminCaracteristicaHandler),
 ], debug = True)
