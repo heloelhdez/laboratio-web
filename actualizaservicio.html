@@ -3,7 +3,6 @@
 <head>
   <title></title>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <!-- Template site title
   ================================================== -->
   <title>Galaxy - Responsive Business template</title>
@@ -13,17 +12,21 @@
   <meta name="keywords" content="">
   <meta name="description" content="">
 
-  <!-- Bootstrap CSS
-  ================================================== -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <!-- Animate CSS
   ================================================== -->
   <link rel="stylesheet" href="css/animate.min.css">
 
   <!-- Font Icons
   ================================================== -->
-  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
   <link rel="stylesheet" href="css/et-line-font.css">
 
   <!-- Nivo Lightbox CSS
@@ -47,7 +50,6 @@
   <script type="text/javascript">
 
     sessionStorage.empresa = "kubeet";
-    var myentityKey;
     function getData() 
     {
 
@@ -71,11 +73,10 @@
 
           tweets.forEach(function (tweet) 
           {
-            var j={"name":"binchen"};
-            console.log(JSON.stringify(j));
-            var nombre = "<script>var j={'entityKey':'"+tweet.entityKey+"'};</scr"+''+"ipt><div class='col-md-6 col-sm-6'><div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div><div class='media-body'><h3 class='media-heading'>"+tweet.nombre+"</h3><p>"+tweet.descripcion+"</p></div></div></div><div class='col-md-3'><a id='btn"+tweet.entityKey+"' onclick='imprime(j);' class='btn btn-primary btn-lg btn-block btn-huge'>Eliminar</a></div>";
+           // var j={"name":"binchen"};
+            //console.log(JSON.stringify(j));
+            var nombre = "<script>var j={'entityKey':'"+tweet.entityKey+"'};</scr"+''+"ipt><div class='col-md-6 col-sm-6'><div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div><div class='media-body'><h3 class='media-heading'>"+tweet.nombre+"</h3><p>"+tweet.descripcion+"</p></div></div><div class='col-md-3 col-sm-3'><form action="" method='post'><button name='obj' value='j'></button></div></form><div class='col-md-3 col-sm-3'><a id='btn"+tweet.entityKey+"' onclick='elimina(j);' class='glyphicon glyphicon-trash btn btn-warning btn-lg btn-block btn-huge'></a></div></div>";
             $("#divServicio").append(nombre);
-
           });
 
 
@@ -89,12 +90,12 @@
     }
   }
 
-  function imprime(asd){
+  function elimina(asd){
+    console.log(asd.entityKey);
     try
     {
-    var myData = new ServicioObject(
-       asd.nombre, 
-       asd.descripcion, 
+    var myData = new TokenKeyObject( 
+       sessionStorage.token,
        asd.entityKey
        );
       alert(myData.toJsonString());
@@ -108,7 +109,8 @@
      success: function (response) {
                 // do something
                 
-                alert (response.data);
+                alert (response.message);
+                 location.reload(); 
               },
 
               error: function (error) {            
@@ -125,12 +127,9 @@
   }
   }
 
-  function ServicioObject(myNombre, myDescripcion, entityKey) {
+  function TokenKeyObject(token, entityKey) {
 
-    this.nombre = myNombre;
-    this.descripcion = myDescripcion;
-    this.token = sessionStorage.token;
-    this.urlImage = sessionStorage.urlImage;
+    this.tokenint = token;
     this.entityKey = entityKey;
     this.toJsonString = function () { return JSON.stringify(this); };
 
@@ -230,16 +229,6 @@
 <body onload="getData()">
   <div class="col-md-6 col-sm-12" id="divServicio">
 
-    <div class="col-md-6 col-sm-6" >
-      <div class="media">
-        <div class="media-object pull-left">
-          <i class="icon icon-laptop wow fadeInUp" data-wow-delay="0.9s"></i>
-        </div>
-        <div class="media-body">
-          <h3 class="media-heading">Web Design</h3>
-          <p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo.</p>
-        </div>
-      </div>
     </div>
   </body>
   </html>
