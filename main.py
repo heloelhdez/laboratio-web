@@ -71,6 +71,7 @@ class GetServicioHandler(webapp2.RequestHandler):
      json_string = json.dumps(myList, default=MyClass)
      self.response.write(json_string)
 
+
 class GetIntroduccionHandler(webapp2.RequestHandler):
 
     def get(self):
@@ -334,4 +335,6 @@ app = webapp2.WSGIApplication([
     ('/adminacerca', AdminAcercaHandler),
     ('/getcaracteristica', GetCaracteristicaHandler),
     ('/admincaracteristica', AdminCaracteristicaHandler),
+    ('/admincaracteristica', AdminCaracteristicaHandler),
+    
 ], debug = True)
