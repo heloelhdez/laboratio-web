@@ -62,6 +62,7 @@ class GetServicioHandler(webapp2.RequestHandler):
      myList = []
      for i in myServicio:
       myObj = DemoClass()
+      myObj.entityKey = i.entityKey
       myObj.nombre = i.nombre
       myObj.descripcion = i.descripcion
       myObj.urlImage = i.urlImage
@@ -240,6 +241,21 @@ class AdminServicioHandler(webapp2.RequestHandler):
     template = jinja_env.get_template(template_name)
     return template.render(context)
 
+class ActualizaServicioHandler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('actualizaservicio.html', template_context))
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
+
 class AdminIntroduccionHandler(webapp2.RequestHandler):
 
    def get(self):
@@ -311,6 +327,7 @@ app = webapp2.WSGIApplication([
     ('/menu', MenuHandler),
     ('/getservicio', GetServicioHandler),
     ('/adminservicio', AdminServicioHandler),
+    ('/actualizaservicio', ActualizaServicioHandler),
     ('/getintroduccion', GetIntroduccionHandler),
     ('/adminintroduccion', AdminIntroduccionHandler),
     ('/getacerca', GetAcercaHandler),

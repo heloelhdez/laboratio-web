@@ -46,9 +46,6 @@
 sessionStorage.empresa = "kubeet";
 function getData() 
 {
-
-	
-
     jQuery.support.cors = true;
     try
     {                         
@@ -160,12 +157,46 @@ function getData3()
       alert("error : " +  e);
      }
 }
+function getData4() 
+{
 
+    jQuery.support.cors = true;
+    try
+    {                         
+     $.ajax({
+        url: "http://localhost:8080/getservicio",
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: true,
+        data: {empresa: sessionStorage.empresa},                         
+        type: 'get',
+        crossDomain: true,
+        success: function(response) {
+    	tweets = response;
+          //alert(response);
+          
+          tweets.forEach(function (tweet) 
+          {
+
+             var nombre = "<div class='col-md-6 col-sm-6'>					<div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div>						<div class='media-body'><h3 class='media-heading'>"+tweet.nombre+"</h3><p>"+tweet.descripcion+"</p></div></div></div>";
+             $("#divServicio").append(nombre);
+                });
+     
+   }
+        });          
+     
+    }
+ catch(e)
+    {
+      alert("error : " +  e);
+     }
+}
 </script>
 	
 </head>
 
-<body onload="getData(),getData2(),getData3()" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+<body onload="getData(),getData2(),getData3(),getData4()" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
 
 <!-- Preloader section
@@ -362,7 +393,7 @@ function getData3()
 ================================================== -->
 <section id="service" class="parallax-section">
 	<div class="container">
-		<div class="row">
+		<div class="row" >
 
 			<!-- Section title
 			================================================== -->
@@ -378,9 +409,9 @@ function getData3()
 				<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur dolor libero sodales vitae elit massa. Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur dolor libero sodales vitae elit massa.</p>
 			</div>
 
-			<div class="col-md-6 col-sm-12">
+			<div class="col-md-6 col-sm-12" id="divServicio">
 
-				<div class="col-md-6 col-sm-6">
+				<div class="col-md-6 col-sm-6" >
 					<div class="media">
 						<div class="media-object pull-left">
 							<i class="icon icon-laptop wow fadeInUp" data-wow-delay="0.9s"></i>
@@ -390,37 +421,9 @@ function getData3()
 							<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo.</p>
 						</div>
 					</div>
-					<div class="media">
-						<div class="media-object pull-left">
-							<i class="icon icon-focus wow fadeInUp" data-wow-delay="0.9s"></i>
-						</div>
-						<div class="media-body">
-							<h3 class="media-heading">SEO Friendly</h3>
-							<p>You can easily change icons by looking at <span>ET Line Icons</span>.</p>
-						</div>
-					</div>
 				</div>
 
-				<div class="col-md-6 col-sm-6">
-					<div class="media">
-						<div class="media-object pull-left">
-							<i class="icon icon-camera wow fadeInUp" data-wow-delay="0.9s"></i>
-						</div>
-						<div class="media-body">
-							<h3 class="media-heading">Multimedia</h3>
-							<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo.</p>
-						</div>
-					</div>
-					<div class="media">
-						<div class="media-object pull-left">
-							<i class="icon icon-cloud wow fadeInUp" data-wow-delay="0.9s"></i>
-						</div>
-						<div class="media-body">
-							<h3 class="media-heading">Social Marketing</h3>
-							<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo.</p>
-						</div>
-					</div>
-				</div>
+				
 
 			</div>
 

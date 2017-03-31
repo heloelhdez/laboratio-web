@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <!-- Template site title
+   ================================================== -->
+  <title>Galaxy - Responsive Business template</title>
+
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+
+  <!-- Bootstrap CSS
+   ================================================== -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  <!-- Animate CSS
+   ================================================== -->
+  <link rel="stylesheet" href="css/animate.min.css">
+
+  <!-- Font Icons
+   ================================================== -->
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/et-line-font.css">
+
+  <!-- Nivo Lightbox CSS
+   ================================================== -->
+  <link rel="stylesheet" href="css/nivo-lightbox.css">
+  <link rel="stylesheet" href="css/nivo_themes/default/default.css">
+
+  <!-- Owl Carousel CSS
+   ================================================== -->
+    <link rel="stylesheet" href="css/owl.theme.css">
+  <link rel="stylesheet" href="css/owl.carousel.css">
+
+  <!-- Main CSS
+   ================================================== -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Google web font 
+   ================================================== --> 
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:700,400' rel='stylesheet' type='text/css'>
+
+  <script type="text/javascript">
+  sessionStorage.empresa = "kubeet";
+  function getData() 
+{
+
+    jQuery.support.cors = true;
+    try
+    {                         
+     $.ajax({
+        url: "http://localhost:8080/getservicio",
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: true,
+        data: {empresa: sessionStorage.empresa},                         
+        type: 'get',
+        crossDomain: true,
+        success: function(response) {
+      tweets = response;
+          //alert(response);
+          console.log(tweets[0]);
+          tweets.forEach(function (tweet) 
+          {
+
+             var nombre = "<div class='col-md-6 col-sm-6'>          <div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div>            <div class='media-body'><h3 class='media-heading'>"+tweet.entityKey+"</h3><p>"+tweet.descripcion+"</p></div></div></div>";
+             $("#divServicio").append(nombre);
+                });
+     
+   }
+        });          
+     
+    }
+ catch(e)
+    {
+      alert("error : " +  e);
+     }
+}
+function ServicioObject(myNombre, myDescripcion) {
+    
+    this.nombre = myNombre;
+    this.descripcion = myDescripcion;
+    this.token = sessionStorage.token;
+    this.urlImage = sessionStorage.urlImage;
+    this.toJsonString = function () { return JSON.stringify(this); };
+
+};
+
+function addServicioDemo()
+{
+  try
+  {
+
+    alert("token : " + sessionStorage.token);
+
+    var myData = new ServicioObject(
+     $("#nombre").val(), 
+     $("#descripcion").val() 
+     );
+    alert(myData.toJsonString());
+
+     jQuery.ajax({
+           type: "POST",
+           url: "http://localhost:8080/_ah/api/servicio_api/v1/servicio/insert",
+           data: myData.toJsonString(),
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (response) {
+                // do something
+                alert (response.code + " " + response.message);
+           },
+       
+           error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+           }
+       });
+
+   }
+   catch(error)
+   {
+    alert(error);
+   }
+
+}
+
+
+function TokenObject() {
+    
+    this.tokenint = sessionStorage.token;
+    console.log(sessionStorage.token);
+    this.toJsonString = function () { return JSON.stringify(this); };
+
+};
+
+
+function getServicioList()
+{
+  try
+  {
+
+
+    //alert("token : " + sessionStorage.token);
+
+    var myData = new TokenObject();
+    
+    alert(myData.toJsonString());
+
+     jQuery.ajax({
+           type: "POST",
+           url: "http://localhost:8080/_ah/api/servicio_api/v1/servicio/list",
+           data: myData.toJsonString(),
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (response) {
+                // do something
+                
+                alert (response.data);
+           },
+       
+           error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+           }
+
+       });
+
+   }
+   catch(error)
+   {
+    alert(error);
+   }
+
+}
+
+function uploadDemo()
+
+{
+    var file_data = $("#uploaded_file").prop("files")[0];
+    var form_data = new FormData();
+    form_data.append("uploaded_file", file_data)
+
+    jQuery.support.cors = true;
+    try
+    {
+     $.ajax({
+                url: "http://localhost:8080/up",
+                dataType: 'text',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                crossDomain: true,
+                success: function(response){
+
+                                document.getElementById("preview").src=response;
+
+                                sessionStorage.urlImage = response;
+
+                                document.getElementById("url_photo").value = response;
+                }
+      });
+    }
+    catch(e)
+    {
+      alert("error : " +  e);
+     }
+}
+
+
+</script>
+</head>
+<body onload="getData()">
+<div class="col-md-6 col-sm-12" id="divServicio">
+
+        <div class="col-md-6 col-sm-6" >
+          <div class="media">
+            <div class="media-object pull-left">
+              <i class="icon icon-laptop wow fadeInUp" data-wow-delay="0.9s"></i>
+            </div>
+            <div class="media-body">
+              <h3 class="media-heading">Web Design</h3>
+              <p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo.</p>
+            </div>
+          </div>
+        </div>
+</body>
+</html>

@@ -184,3 +184,36 @@ class Caracteristica(CustomBaseModel):
         caracteristica.empresa_key=empresa_key#inserta el entityKey de la empresa que es un parametro que se manda en main.py
         caracteristica.put()#inserta o hace un update depende del main.py
         return 0
+
+####### Acerca #########
+
+class Acerca(CustomBaseModel):
+    _message_fields_schema = ('entityKey', 'nombre', 'descripcion', 'urlImage')
+    empresa_key = ndb.KeyProperty(kind=Empresa)
+    nombre = ndb.StringProperty()
+    descripcion = ndb.StringProperty()
+    urlImage = ndb.StringProperty()
+ 
+    ### Acerca ####
+    def acerca_m(self, data, empresa_key):
+        acerca  = Acerca()#Crea una variable de tipo Base de datos
+        acerca.populate(data)#Llena la variables con los datos dados por el request en main.py
+        acerca.empresa_key=empresa_key#inserta el entityKey de la empresa que es un parametro que se manda en main.py
+        acerca.put()#inserta o hace un update depende del main.py
+        return 0
+
+####### Caracteristica #########
+
+class Ubicacion(CustomBaseModel):
+    _message_fields_schema = ('entityKey', 'latitud', 'longitud')
+    empresa_key = ndb.KeyProperty(kind=Empresa)
+    latitud = ndb.StringProperty()
+    longitud = ndb.StringProperty()
+ 
+    ### Acerca ####
+    def ubicacion_m(self, data, empresa_key):
+        ubicacion  = Caracteristica()#Crea una variable de tipo Base de datos
+        ubicacion.populate(data)#Llena la variables con los datos dados por el request en main.py
+        ubicacion.empresa_key=empresa_key#inserta el entityKey de la empresa que es un parametro que se manda en main.py
+        ubicacion.put()#inserta o hace un update depende del main.py
+        return 0
