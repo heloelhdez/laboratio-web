@@ -68,7 +68,8 @@
           tweets.forEach(function (tweet) 
           {
 
-             var nombre = "<div class='col-md-6 col-sm-6'>          <div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div>            <div class='media-body'><h3 class='media-heading'>"+tweet.entityKey+"</h3><p>"+tweet.descripcion+"</p></div></div></div>";
+             var nombre = "<div class='col-md-6 col-sm-6'>          <div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div>            <div class='media-body'><h3 class='media-heading'>"+tweet.nombre+"</h3><p>"+tweet.descripcion+"</p></div></div></div><div class='col-md-3'><a onclick="elimina(+tweet.entityKey+)" class="btn btn-primary btn-lg btn-block btn-huge">Agregar integrante al equipo</a>
+        </div>";
              $("#divServicio").append(nombre);
                 });
      
