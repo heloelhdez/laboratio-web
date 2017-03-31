@@ -46,6 +46,7 @@
 
   <script type="text/javascript">
   sessionStorage.empresa = "kubeet";
+  var myentityKey;
   function getData() 
 {
 
@@ -64,14 +65,15 @@
         success: function(response) {
       tweets = response;
           //alert(response);
-          console.log(tweets[0]);
+          //console.log(tweets[0]);
+          var i =0;
           tweets.forEach(function (tweet) 
           {
-
-             var nombre = "<div class='col-md-6 col-sm-6'>          <div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div>            <div class='media-body'><h3 class='media-heading'>"+tweet.nombre+"</h3><p>"+tweet.descripcion+"</p></div></div></div><div class='col-md-3'><a onclick="elimina(+tweet.entityKey+)" class="btn btn-primary btn-lg btn-block btn-huge">Agregar integrante al equipo</a>
-        </div>";
+            
+             var nombre = "<div class='col-md-6 col-sm-6'><div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div><div class='media-body'><h3 class='media-heading'>"+tweet.nombre+"</h3><p>"+tweet.descripcion+"</p></div></div></div><div class='col-md-3'><a id='btn"+tweet.entityKey+"' onclick='elimina({entityKey: "+tweet.entityKey+"}));' class='btn btn-primary btn-lg btn-block btn-huge'>Eliminar</a></div>";
              $("#divServicio").append(nombre);
                 });
+
      
    }
         });          
@@ -82,6 +84,10 @@
       alert("error : " +  e);
      }
 }
+function imprime(objeto){
+  console.log(objeto);
+}
+
 function ServicioObject(myNombre, myDescripcion) {
     
     this.nombre = myNombre;
@@ -179,34 +185,30 @@ function getServicioList()
 
 }
 
-function uploadDemo()
-
-{
-    var file_data = $("#uploaded_file").prop("files")[0];
-    var form_data = new FormData();
-    form_data.append("uploaded_file", file_data)
+function elimina(arr){
+    console.log("entre a elimina");
 
     jQuery.support.cors = true;
     try
     {
-     $.ajax({
-                url: "http://localhost:8080/up",
-                dataType: 'text',
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data,
-                type: 'post',
-                crossDomain: true,
-                success: function(response){
+     jQuery.ajax({
+           type: "POST",
+           url: "http://localhost:8080/_ah/api/servicio_api/v1/servicio/delete",
+           data: arr,
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (response) {
+                // do something
+                
+                alert (response.data);
+           },
+       
+           error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+           }
 
-                                document.getElementById("preview").src=response;
-
-                                sessionStorage.urlImage = response;
-
-                                document.getElementById("url_photo").value = response;
-                }
-      });
+       });
     }
     catch(e)
     {
