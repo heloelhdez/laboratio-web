@@ -198,7 +198,34 @@ class CaracteristicaList(messages.Message):
 #es necesario el repeated para que sea lista
     data = messages.MessageField(CaracteristicaUpdate, 2, repeated=True)
 
+######Ubicacion########
+
+#Mensaje de Entrada y Salida para la base de datos Team
+class UbicacionInput(messages.Message):
+    token = messages.StringField(1, required=True) 
+    latitud = messages.StringField(2)
+    longitud = messages.StringField(3)
     
+
+    
+class UbicacionUpdate(messages.Message):
+    token = messages.StringField(1, required=True)
+    #empresa_key = messages.StringField(2, required=True)
+    entityKey = messages.StringField(2, required=True)
+    latitud = messages.StringField(3)
+    longitud = messages.StringField(4)
+    
+
+#regresa una lista para la base de datos Empresa
+class UbicacionList(messages.Message):
+    code = messages.IntegerField(1)
+#regresa mensaje de lo ocurrido
+#mensaje de tipo MENSAJEFIED que regresa una lista de tipo TeamUpdate
+#es necesario el repeated para que sea lista
+    data = messages.MessageField(UbicacionUpdate, 2, repeated=True)
+
+
+
 # Output messages
 #regresa un token
 class TokenMessage(messages.Message):

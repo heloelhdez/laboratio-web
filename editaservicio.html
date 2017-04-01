@@ -8,10 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script>
-
-function recive()
-{ 
-  var getUrlParameter = function getUrlParameter(sParam) {
+var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),
         sParameterName,
@@ -26,20 +23,69 @@ function recive()
     }
   };
 
-  var tech = getUrlParameter('objeto');
-  console.log(tech);
+  var entityKey = getUrlParameter('entityKey');
+  var nombre = getUrlParameter('nombre');
+  var descripcion = getUrlParameter('descripcion');
+  var urlImage = getUrlParameter('urlImage');
+  nombre = nombre.replace(/[+]/g," ");
+  descripcion = descripcion.replace(/[+]/g," ");
+function recive()
+{ 
+  console.log(nombre);
+  document.getElementById("nombre").value = nombre;
+  document.getElementById("descripcion").value = descripcion;
+  document.getElementById("preview").src = urlImage;
+  document.getElementById("url_photo").value = urlImage;
 }
-
-// contact
-function ServicioObject(myNombre, myDescripcion) {
-    
-    this.nombre = myNombre;
-    this.descripcion = myDescripcion;
-    this.token = sessionStorage.token;
-    this.urlImage = sessionStorage.urlImage;
+function ServicioObject(token, entityKey, nombre, descripcion, urlImage){
+   this.token = token;
+    this.entityKey = entityKey;
+    this.nombre = nombre;
+    this.descripcion = descripcion;
+    this.urlImage = urlImage;
     this.toJsonString = function () { return JSON.stringify(this); };
+}
+function update() 
+    {
+      console.log("Estoy en update "+descripcion);
+      var token = sessionStorage.token;
+      var urlImage = sessionStorage.urlImage;
 
-};
+      var nombre = document.getElementById("nombre").value;
+      var descripcion = document.getElementById("descripcion").value;
+  var urlImage =  document.getElementById("url_photo").value; 
+      var myData = new ServicioObject(token, entityKey, nombre, descripcion, urlImage);
+      alert(myData.toJsonString());
+      jQuery.support.cors = true;
+      try
+      {                         
+       jQuery.ajax({
+        type: "POST",
+        url: "/_ah/api/servicio_api/v1/servicio/update",
+        data: myData.toJsonString(),
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (response) {
+                // do something
+                alert (response.code + " " + response.message);
+                 window.location = "/actualizaservicio"; 
+           },
+       
+           error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+           }
+      });          
+
+     }
+     catch(e)
+     {
+      alert("error : " +  e);
+    }
+  }
+
+
+
 
 function addServicioDemo()
 {
@@ -93,8 +139,6 @@ function getServicioList()
 {
   try
   {
-
-
     //alert("token : " + sessionStorage.token);
 
     var myData = new TokenObject();
@@ -187,7 +231,7 @@ Descripcion: <input type="text" id="descripcion" value="Este servicio es el mejo
 
 
 <br>
-<button onclick="addServicioDemo()"> Guardar </button> 
+<button onclick="update()"> Guardar </button> 
 
 <br>
 <br>

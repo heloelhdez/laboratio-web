@@ -343,6 +343,7 @@ app = webapp2.WSGIApplication([
     ('/menu', MenuHandler),
     ('/getservicio', GetServicioHandler),
     ('/adminservicio', AdminServicioHandler),
+    ('/editaservicio', EditaServicioHandler),
     ('/actualizaservicio', ActualizaServicioHandler),
     ('/getintroduccion', GetIntroduccionHandler),
     ('/adminintroduccion', AdminIntroduccionHandler),
@@ -350,8 +351,7 @@ app = webapp2.WSGIApplication([
     ('/adminacerca', AdminAcercaHandler),
     ('/getcaracteristica', GetCaracteristicaHandler),
     ('/admincaracteristica', AdminCaracteristicaHandler),
-    ('/admincaracteristica', AdminCaracteristicaHandler),
-    ('/editaservicio', EditaServicioHandler),
+    
     
     
 ], debug = True)

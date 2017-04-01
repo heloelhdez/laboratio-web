@@ -70,14 +70,16 @@
           //alert(response);
           //console.log(tweets[0]);
           var i =0;
-
-          tweets.forEach(function (tweet) 
-          {
-           // var j={"name":"binchen"};
+          
+          for(var i in tweets)
+            {
+            
+            
             //console.log(JSON.stringify(j));
-            var nombre = "<script>var j={'entityKey':'"+tweet.entityKey+"'};</scr"+''+"ipt><div class='col-md-6 col-sm-6'><div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div><div class='media-body'><h3 class='media-heading'>"+tweet.nombre+"</h3><p>"+tweet.descripcion+"</p></div></div><div class='col-md-3 col-sm-3'><form action='/editaservicio' method='get'><button class='glyphicon glyphicon-pencil btn btn-primary btn-lg btn-block btn-huge' name='objeto' value='"+tweet.entityKey+"'></button></div></form><div class='col-md-3 col-sm-3'><a id='btn"+tweet.entityKey+"' onclick='elimina(j);' class='glyphicon glyphicon-trash btn btn-warning btn-lg btn-block btn-huge'></a></div></div>";
+            var nombre = "<div class='col-md-6 col-sm-6'><div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div><div class='media-body'><h3 class='media-heading'>"+tweets[i].nombre+"</h3><p>"+tweets[i].descripcion+"</p></div></div><div class='col-md-3 col-sm-3'><form action='/editaservicio' method='get'><input type='text' name='entityKey' value='"+tweets[i].entityKey+"' hidden><input type='text' name='descripcion' value='"+tweets[i].descripcion+"' hidden><input type='text' name='urlImage' value='"+tweets[i].urlImage+"' hidden><input type='text' name='nombre' value='"+tweets[i].nombre+"' hidden><button class='glyphicon glyphicon-pencil btn btn-primary btn-lg btn-block btn-huge' ></button></div></form><div class='col-md-3 col-sm-3'><a class=' glyphicon glyphicon-trash btn btn-warning  btn-lg btn-block btn-huge' onclick='confirmDeletion(this.id)' id='"+tweets[i].entityKey+"'" + "></a></div></div>";
             $("#divServicio").append(nombre);
-          });
+            
+          };
 
 
         }
@@ -89,13 +91,56 @@
       alert("error : " +  e);
     }
   }
+function confirmDeletion(id) {
+      var x = confirm("Quieres eliminar el servicio?");
+      if (x)
+        deleteGuest(id);
+      else
+        return;
+    }
+
+    function GuestObject(entityKey) {
+      this.tokenint = sessionStorage.token;
+      this.entityKey = entityKey;
+      this.toJsonString = function () { return JSON.stringify(this); };
+    };
+
+    function deleteGuest(id) {
+    try
+    {
+      var myData = new GuestObject(id);
+
+      jQuery.ajax({
+         type: "POST",
+         url: "/_ah/api/servicio_api/v1/servicio/delete",
+         data: myData.toJsonString(),
+         contentType: "application/json; charset=utf-8",
+         dataType: "json",
+         success: function (response) {
+              // do something
+              alert (response.message);
+              window.location = "/actualizaservicio";
+         },
+
+         error: function (error) {            
+              // error handler
+              alert("error :" + error.message)
+         }
+
+      });
+    }
+    catch(error)
+    {
+      alert(error);
+    }
+    }
 
   function elimina(asd){
     console.log(asd.entityKey);
     try
     {
     var myData = new TokenKeyObject( 
-       sessionStorage.token,
+       asd.token,
        asd.entityKey
        );
       alert(myData.toJsonString());
@@ -128,7 +173,6 @@
   }
 
   function TokenKeyObject(token, entityKey) {
-
     this.tokenint = token;
     this.entityKey = entityKey;
     this.toJsonString = function () { return JSON.stringify(this); };

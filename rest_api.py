@@ -15,11 +15,12 @@ from messages import UserInput, UserUpdate, UserList
 from messages import IntroduccionInput,IntroduccionUpdate, IntroduccionList
 from messages import AcercaInput, AcercaUpdate, AcercaList
 from messages import CaracteristicaInput, CaracteristicaUpdate, CaracteristicaList
+from messages import UbicacionInput, UbicacionUpdate, UbicacionList
 from endpoints_proto_datastore.ndb import EndpointsModel
 
 import models
 from models import validarEmail
-from models import Empresa, Usuarios, Team, Servicio, Introduccion, Acerca, Caracteristica
+from models import Empresa, Usuarios, Team, Servicio, Introduccion, Acerca, Caracteristica, Ubicacion
 
 ###############
 # Usuarios
