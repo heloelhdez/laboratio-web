@@ -212,7 +212,7 @@ class Ubicacion(CustomBaseModel):
  
     ### Acerca ####
     def ubicacion_m(self, data, empresa_key):
-        ubicacion  = Caracteristica()#Crea una variable de tipo Base de datos
+        ubicacion  = Ubicacion()#Crea una variable de tipo Base de datos
         ubicacion.populate(data)#Llena la variables con los datos dados por el request en main.py
         ubicacion.empresa_key=empresa_key#inserta el entityKey de la empresa que es un parametro que se manda en main.py
         ubicacion.put()#inserta o hace un update depende del main.py

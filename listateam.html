@@ -57,7 +57,7 @@
       try
       {                         
        $.ajax({
-        url: "/getservicio",
+        url: "/getteam",
         dataType: 'json',
         cache: false,
         contentType: false,
@@ -76,8 +76,8 @@
             
             
             //console.log(JSON.stringify(j));
-            var nombre = "<div class='col-md-6 col-sm-6'><div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div><div class='media-body'><h3 class='media-heading'>"+tweets[i].nombre+"</h3><p>"+tweets[i].descripcion+"</p></div></div><div class='col-md-3 col-sm-3'><form action='/editaservicio' method='get'><input type='text' name='entityKey' value='"+tweets[i].entityKey+"' hidden><input type='text' name='descripcion' value='"+tweets[i].descripcion+"' hidden><input type='text' name='urlImage' value='"+tweets[i].urlImage+"' hidden><input type='text' name='nombre' value='"+tweets[i].nombre+"' hidden><button class='glyphicon glyphicon-pencil btn btn-primary btn-lg btn-block btn-huge' ></button></div></form><div class='col-md-3 col-sm-3'><a class=' glyphicon glyphicon-trash btn btn-warning  btn-lg btn-block btn-huge' onclick='confirmDeletion(this.id)' id='"+tweets[i].entityKey+"'" + "></a></div></div>";
-            $("#divServicio").append(nombre);
+            var nombre = "<div class='col-md-6 col-sm-6'><div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div><div class='media-body'><h3 class='media-heading'>"+tweets[i].nombre+"</h3><p>"+tweets[i].puesto+"</p></div></div><div class='col-md-3 col-sm-3'><form action='/editateam' method='get'><input type='text' name='entityKey' value='"+tweets[i].entityKey+"' hidden><input type='text' name='puesto' value='"+tweets[i].puesto+"' hidden><input type='text' name='urlImage' value='"+tweets[i].urlImage+"' hidden><input type='text' name='nombre' value='"+tweets[i].nombre+"' hidden><button class='glyphicon glyphicon-pencil btn btn-primary btn-lg btn-block btn-huge' ></button></div></form><div class='col-md-3 col-sm-3'><a class=' glyphicon glyphicon-trash btn btn-warning  btn-lg btn-block btn-huge' onclick='confirmDeletion(this.id)' id='"+tweets[i].entityKey+"'" + "></a></div></div>";
+            $("#divTeam").append(nombre);
             
           };
 
@@ -92,7 +92,7 @@
     }
   }
 function confirmDeletion(id) {
-      var x = confirm("Quieres eliminar el servicio?");
+      var x = confirm("Quieres eliminar el team?");
       if (x)
         deleteGuest(id);
       else
@@ -112,14 +112,14 @@ function confirmDeletion(id) {
 
       jQuery.ajax({
          type: "POST",
-         url: "/_ah/api/servicio_api/v1/servicio/delete",
+         url: "/_ah/api/team_api/v1/team/delete",
          data: myData.toJsonString(),
          contentType: "application/json; charset=utf-8",
          dataType: "json",
          success: function (response) {
               // do something
               alert (response.message);
-              window.location = "/actualizaservicio";
+              window.location = "/actualizateam";
          },
 
          error: function (error) {            
@@ -147,7 +147,7 @@ function confirmDeletion(id) {
 
      jQuery.ajax({
      type: "POST",
-     url: "/_ah/api/servicio_api/v1/servicio/delete",
+     url: "/_ah/api/team_api/v1/team/delete",
      data: myData.toJsonString(),
      contentType: "application/json; charset=utf-8",
      dataType: "json",
@@ -179,22 +179,22 @@ function confirmDeletion(id) {
 
   };
 
-  function addServicioDemo()
+  function addTeamDemo()
   {
     try
     {
 
       alert("token : " + sessionStorage.token);
 
-      var myData = new ServicioObject(
+      var myData = new TeamObject(
        $("#nombre").val(), 
-       $("#descripcion").val() 
+       $("#puesto").val() 
        );
       alert(myData.toJsonString());
 
       jQuery.ajax({
        type: "POST",
-       url: "/_ah/api/servicio_api/v1/servicio/insert",
+       url: "/_ah/api/team_api/v1/team/insert",
        data: myData.toJsonString(),
        contentType: "application/json; charset=utf-8",
        dataType: "json",
@@ -227,7 +227,7 @@ function confirmDeletion(id) {
   };
 
 
-  function getServicioList()
+  function getTeamList()
   {
     try
     {
@@ -241,7 +241,7 @@ function confirmDeletion(id) {
 
     jQuery.ajax({
      type: "POST",
-     url: "/_ah/api/servicio_api/v1/servicio/list",
+     url: "/_ah/api/team_api/v1/team/list",
      data: myData.toJsonString(),
      contentType: "application/json; charset=utf-8",
      dataType: "json",
@@ -271,7 +271,7 @@ function confirmDeletion(id) {
 </script>
 </head>
 <body onload="getData()">
-  <div class="col-md-6 col-sm-12" id="divServicio">
+  <div class="col-md-6 col-sm-12" id="divTeam">
 
     </div>
   </body>

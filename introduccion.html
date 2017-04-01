@@ -34,7 +34,7 @@ function addIntroduccionDemo()
 
   	 jQuery.ajax({
            type: "POST",
-           url: "http://localhost:8080/_ah/api/introduccion_api/v1/introduccion/insert",
+           url: "/_ah/api/introduccion_api/v1/introduccion/insert",
            data: myData.toJsonString(),
            contentType: "application/json; charset=utf-8",
            dataType: "json",
@@ -81,7 +81,7 @@ function getIntroduccionList()
 
      jQuery.ajax({
            type: "POST",
-           url: "http://localhost:8080/_ah/api/introduccion_api/v1/introduccion/list",
+           url: "/_ah/api/introduccion_api/v1/introduccion/list",
            data: myData.toJsonString(),
            contentType: "application/json; charset=utf-8",
            dataType: "json",
@@ -118,7 +118,7 @@ function uploadDemo()
     try
     {
      $.ajax({
-                url: "http://localhost:8080/up",
+                url: "/up",
                 dataType: 'text',
                 cache: false,
                 contentType: false,

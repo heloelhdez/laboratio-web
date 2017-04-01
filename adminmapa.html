@@ -1,0 +1,135 @@
+<html>
+
+<head>
+ <title>
+   new - demo
+ </title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+// contact
+function UbicacionObject(myLatitud, myLongitud) {
+    
+    this.latitud = myLatitud;
+    this.longitud = myLongitud;
+    this.token = sessionStorage.token;
+    this.toJsonString = function () { return JSON.stringify(this); };
+
+};
+
+
+function addUbicacionDemo()
+{
+	try
+  {
+
+
+    alert("token : " + sessionStorage.token);
+
+  	var myData = new UbicacionObject(
+     $("#latitud").val(), 
+     $("#longitud").val() 
+     );
+  	alert(myData.toJsonString());
+
+  	 jQuery.ajax({
+           type: "POST",
+           url: "/_ah/api/ubicacion_api/v1/ubicacion/insert",
+           data: myData.toJsonString(),
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (response) {
+                // do something
+                alert (response.code + " " + response.message);
+           },
+       
+           error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+           }
+
+       });
+
+   }
+   catch(error)
+   {
+    alert(error);
+   }
+
+}
+
+
+function TokenObject() {
+    
+    this.tokenint = sessionStorage.token;
+    this.toJsonString = function () { return JSON.stringify(this); };
+
+};
+
+
+function getUbicacionList()
+{
+  try
+  {
+
+
+    //alert("token : " + sessionStorage.token);
+
+    var myData = new TokenObject();
+    
+    alert(myData.toJsonString());
+
+     jQuery.ajax({
+           type: "POST",
+           url: "/_ah/api/ubicacion_api/v1/ubicacion/list",
+           data: myData.toJsonString(),
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (response) {
+                // do something
+                
+                alert (response.data);
+           },
+       
+           error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+           }
+
+       });
+
+   }
+   catch(error)
+   {
+    alert(error);
+   }
+
+}
+
+
+</script>
+
+</head>
+<body>
+
+
+<h1> Add demo</h1>
+
+latitud: <input type="text" id="latitud" value="150" /> <br>
+longitud: <input type="text" id="longitud" value="84098" />
+
+ 
+
+
+<br>
+<button onclick="addUbicacionDemo()"> Guardar </button> 
+
+<br>
+<br>
+
+<button onclick="getUbicacionList()"> Obtener Lista </button> 
+
+
+</body>
+</html>

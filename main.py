@@ -11,7 +11,7 @@ import os
 import jinja2
 
 from models import Empresa, Servicio, Introduccion
-from models import Team, Acerca, Caracteristica
+from models import Team, Acerca, Caracteristica, Ubicacion
 
 jinja_env = jinja2.Environment(
  loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -39,6 +39,7 @@ class GetTeamHandler(webapp2.RequestHandler):
      myList = []
      for i in myTeam:
       myObj = DemoClass()
+      myObj.entityKey = i.entityKey
       myObj.nombre = i.nombre
       myObj.puesto = i.puesto
       myObj.urlImage = i.urlImage
@@ -87,6 +88,7 @@ class GetIntroduccionHandler(webapp2.RequestHandler):
      myList = []
      for i in myIntroduccion:
       myObj = DemoClass()
+      myObj.entityKey = i.entityKey
       myObj.nombre = i.nombre
       myObj.descripcion = i.descripcion
       myObj.urlImage = i.urlImage
@@ -110,6 +112,7 @@ class GetAcercaHandler(webapp2.RequestHandler):
      myList = []
      for i in myAcerca:
       myObj = DemoClass()
+      myObj.entityKey = i.entityKey
       myObj.nombre = i.nombre
       myObj.descripcion = i.descripcion
       myObj.urlImage = i.urlImage
@@ -133,6 +136,7 @@ class GetCaracteristicaHandler(webapp2.RequestHandler):
      myList = []
      for i in myCaracteristica:
       myObj = DemoClass()
+      myObj.entityKey = i.entityKey
       myObj.nombre = i.nombre
       myObj.descripcion = i.descripcion
       myObj.urlImage = i.urlImage
@@ -140,7 +144,28 @@ class GetCaracteristicaHandler(webapp2.RequestHandler):
        
      json_string = json.dumps(myList, default=MyClass)
      self.response.write(json_string)
+class GetUbicacionHandler(webapp2.RequestHandler):
 
+    def get(self):
+     self.response.headers.add_header('Access-Control-Allow-Origin', '*')
+     self.response.headers['Content-Type'] = 'application/json'
+
+     id_empresa = self.request.get('empresa')
+     objemp = Empresa.query(Empresa.codigo_empresa == id_empresa).get()
+     strKey = objemp.key.urlsafe() 
+     myEmpKey = ndb.Key(urlsafe=strKey) 
+     myUbicacion = Ubicacion.query(Ubicacion.empresa_key == myEmpKey)
+
+     myList = []
+     for i in myUbicacion:
+      myObj = DemoClass()
+      myObj.entityKey = i.entityKey
+      myObj.latitud = i.latitud
+      myObj.longitud = i.longitud
+      myList.append(myObj)
+       
+     json_string = json.dumps(myList, default=MyClass)
+     self.response.write(json_string)
 ###########################################################################     
 
 
@@ -241,6 +266,20 @@ class AdminHandler(webapp2.RequestHandler):
 
     template = jinja_env.get_template(template_name)
     return template.render(context)
+class MapaHandler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('mapa.html', template_context))
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
 
 class AdminServicioHandler(webapp2.RequestHandler):
 
@@ -333,6 +372,54 @@ class MainHandler(webapp2.RequestHandler):
     template = jinja_env.get_template(template_name)
     return template.render(context)
 
+class AdminMapaHandler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('adminmapa.html', template_context))
+
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
+
+class ListaTeamHandler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('listateam.html', template_context))
+
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
+
+class EditaTeamHandler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('editateam.html', template_context))
+
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login', LoginHandler),
@@ -351,7 +438,10 @@ app = webapp2.WSGIApplication([
     ('/adminacerca', AdminAcercaHandler),
     ('/getcaracteristica', GetCaracteristicaHandler),
     ('/admincaracteristica', AdminCaracteristicaHandler),
-    
-    
-    
+    ('/mapa', MapaHandler),
+    ('/adminmapa', AdminMapaHandler),
+    ('/getubicacion',GetUbicacionHandler),
+    ('/listateam',ListaTeamHandler),
+    ('/editateam',EditaTeamHandler),
+ 
 ], debug = True)

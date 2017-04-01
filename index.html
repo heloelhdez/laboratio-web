@@ -50,7 +50,7 @@ function getData()
     try
     {                         
      $.ajax({
-        url: "http://localhost:8080/getteam",
+        url: "/getteam",
         dataType: 'json',
         cache: false,
         contentType: false,
@@ -93,7 +93,7 @@ function getData2()
     try
     {                         
      $.ajax({
-        url: "http://localhost:8080/getintroduccion",
+        url: "/getintroduccion",
         dataType: 'json',
         cache: false,
         contentType: false,
@@ -104,7 +104,7 @@ function getData2()
         success: function(response) {
 	  tweets = response;
           //alert(response);
-          console.log(tweets.pop());
+          //console.log(tweets.pop());
 
           tweets.forEach(function (tweet) 
           {
@@ -130,7 +130,7 @@ function getData3()
     try
     {                         
      $.ajax({
-        url: "http://localhost:8080/getacerca",
+        url: "/getacerca",
         dataType: 'json',
         cache: false,
         contentType: false,
@@ -164,7 +164,7 @@ function getData4()
     try
     {                         
      $.ajax({
-        url: "http://localhost:8080/getservicio",
+        url: "/getservicio",
         dataType: 'json',
         cache: false,
         contentType: false,
@@ -673,9 +673,25 @@ function getData4()
 ================================================== -->
 <footer>
 	<!-- google map -->
-		<div class="google_map">
+		
 			<div id="map-canvas"></div>
-		</div>
+		
+		<script>
+      function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+   <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANoD8ezdMzzRiQBst7SXtX8JxUNA86PHc&callback=initMap">
+    </script>
 </footer>
 
 

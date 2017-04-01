@@ -1,0 +1,4 @@
+cron:
+- description: envia correos
+  url: /Cronner
+  schedule: every day 00:00

@@ -898,7 +898,124 @@ class CaracteristicaApi(remote.Service):
   except jwt.ExpiredSignatureError:
    message = CodeMessage(code=-1, message='Token expired')
   return message
+###########################
+#### Ubicacion
+###########################
+
+@endpoints.api(name='ubicacion_api', version='v1', description='ubicacion REST API')
+class UbicacionApi(remote.Service):
+# get one
+#                   ENTRADA    SALIDA        RUTA              siempre es POST     NOMBRE
+ @endpoints.method(TokenKey, UbicacionList, path='ubicacion/get', http_method='POST', name='ubicacion.get')
+#siempre lleva cls y request
+ def ubicacion_get(cls, request):
+  try:
+   token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
+      #Obtiene el elemento dado el entityKey
+   ubicacionentity = ndb.Key(urlsafe=request.entityKey)
+      #CREA LA SALIDA de tipo JosueInput y le asigna los valores, es a como se declaro en el messages.py
+      #josuentity.get().empresa_key.urlsafe() para poder optener el EntityKey
+   message = ubicacionList(code=1, data=[UbicacionUpdate(token='Succesfully get',
+    entityKey=ubicacionentity.get().entityKey,
+    #empresa_key=teamentity.get().empresa_key.urlsafe(), 
+    latitud=ubicacionentity.get().latitud, 
+    longitud=ubicacionentity.get().longitud)])
+  except jwt.DecodeError:
+   message = ubicacionList(code=-1, data=[])
+  except jwt.ExpiredSignatureError:
+   message = UbicacionListst(code=-2, data=[])
+  return message
 
 
-application = endpoints.api_server([UsuariosApi, EmpresasApi, TeamApi, ServicioApi, IntroduccionApi, AcercaApi, CaracteristicaApi], restricted=False)
+# delete
+#                   ENTRADA    SALIDA        RUTA              siempre es POST     NOMBRE
+ @endpoints.method(TokenKey, CodeMessage, path='ubicacion/delete', http_method='POST', name='ubicacion.delete')
+#siempre lleva cls y request
+ def ubicacion_remove(cls, request):
+  try:
+   token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
+   ubicacionentity = ndb.Key(urlsafe=request.entityKey)#Obtiene el elemento dado el EntitKey
+   ubicacionentity.delete()#BORRA
+   message = CodeMessage(code=0, message='Se ha eliminado el r.h.')
+  except jwt.DecodeError:
+   message = CodeMessage(code=-2, message='Invalid token')
+  except jwt.ExpiredSignatureError:
+   message = CodeMessage(code=-1, message='Token expired')
+  return message
+
+# list
+#                   ENTRADA    SALIDA        RUTA              siempre es POST     NOMBRE
+ @endpoints.method(Token, UbicacionList, path='ubicacion/list', http_method='POST', name='ubicacion.list')
+#siempre lleva cls y request
+ def ubicacion_list(cls, request):
+  try:
+   token = jwt.decode(request.tokenint, 'secret')#CHECA EL TOKEN
+   user = Usuarios.get_by_id(token['user_id']) #obtiene usuario dado el token
+   lista = [] #crea lista para guardar contenido de la BD
+   lstMessage = UbicacionList(code=1) #CREA el mensaje de salida
+   lstBd = ubicacion.query().fetch() #obtiene de la base de datos
+   for i in lstBd: #recorre la base de datos
+    #inserta a la lista creada con los elementos que se necesiten de la base de datos
+    #i.empresa_key.urlsafe() obtiene el entityKey
+       
+    lista.append(UbicacionUpdate(token='', 
+     entityKey=i.entityKey, 
+     #empresa_key=i.empresa_key.urlsafe(),
+     latitud=i.latitud, 
+     longitud=i.longitud))
+   lstMessage.data = lista #ASIGNA a la salida la lista
+   message = lstMessage
+  except jwt.DecodeError:
+   message = ubicacionList(code=-1, data=[])
+  except jwt.ExpiredSignatureError:
+   message = ubicacionList(code=-2, data=[])
+  return message
+
+# insert
+#                   ENTRADA    SALIDA        RUTA              siempre es POST     NOMBRE
+ @endpoints.method(UbicacionInput, CodeMessage, path='ubicacion/insert', http_method='POST', name='ubicacion.insert')
+#siempre lleva cls y request
+ def ubicacion_add(cls, request):
+  try:
+   token = jwt.decode(request.token, 'secret')#CHECA EL TOKEN
+   user = Usuarios.get_by_id(token['user_id']) #obtiene el usuario para poder acceder a los metodos declarados en models.py en la seccion de
+   myubicacion = Ubicacion()
+   if myubicacion.ubicacion_m(request, user.empresa_key)==0:#llama a la funcion declarada en models.py en la seccion de USUARIOS
+    codigo=1
+   else:
+    codigo=-3
+          #la funcion josue_m puede actualizar e insertar
+          #depende de la ENTRADA de este endpoint method
+   message = CodeMessage(code=codigo, message='Su r.h. se ha sido registrado exitosamente')
+  except jwt.DecodeError:
+   message = CodeMessage(code=-2, message='Invalid token')
+  except jwt.ExpiredSignatureError:
+   message = CodeMessage(code=-1, message='Token expired')
+  return message
+
+# update
+#                   ENTRADA    SALIDA        RUTA              siempre es POST     NOMBRE
+ @endpoints.method(UbicacionUpdate, CodeMessage, path='ubicacion/update', http_method='POST', name='ubicacion.update')
+#siempre lleva cls y request
+ def ubicacion_update(cls, request):
+  try:
+   token = jwt.decode(request.token, 'secret')#CHECA EL TOKEN
+   user = Usuarios.get_by_id(token['user_id'])#obtiene el usuario para poder acceder a los metodos declarados en models.py en la seccion de USUARIOS
+   empresakey = ndb.Key(urlsafe=user.empresa_key.urlsafe())#convierte el string dado a entityKey
+   myubicacion = Ubicacion()
+   if myubicacion.ubicacion_m(request, empresakey)==0:#llama a la funcion declarada en models.py en la seccion de USUARIOS
+    codigo=1
+   else:
+    codigo=-3
+      #la funcion josue_m puede actualizar e insertar
+      #depende de la ENTRADA de este endpoint method
+   message = CodeMessage(code=1, message='Sus cambios han sido guardados exitosamente')
+  except jwt.DecodeError:
+   message = CodeMessage(code=-2, message='Invalid token')
+  except jwt.ExpiredSignatureError:
+   message = CodeMessage(code=-1, message='Token expired')
+  return message
+
+
+application = endpoints.api_server([UsuariosApi, EmpresasApi, TeamApi, ServicioApi, IntroduccionApi, AcercaApi, CaracteristicaApi, UbicacionApi], restricted=False)
 
