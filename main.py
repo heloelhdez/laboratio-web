@@ -211,6 +211,21 @@ class MenuHandler(webapp2.RequestHandler):
 
     template = jinja_env.get_template(template_name)
     return template.render(context)
+
+class EditaServicioHandler(webapp2.RequestHandler):
+
+   def get(self):
+
+    template_context = {}
+    self.response.out.write(
+      self._render_template('editaservicio.html', template_context))
+
+   def _render_template(self, template_name, context=None):
+    if context is None:
+     context = {}
+
+    template = jinja_env.get_template(template_name)
+    return template.render(context)
     
 class AdminHandler(webapp2.RequestHandler):
 
@@ -336,5 +351,7 @@ app = webapp2.WSGIApplication([
     ('/getcaracteristica', GetCaracteristicaHandler),
     ('/admincaracteristica', AdminCaracteristicaHandler),
     ('/admincaracteristica', AdminCaracteristicaHandler),
+    ('/editaservicio', EditaServicioHandler),
+    
     
 ], debug = True)
