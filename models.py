@@ -114,7 +114,6 @@ if validarEmail("root@cuates.com") == False:
     admin.hash_password()
     admin.put()
 
-
 ######### Team #########
 
 class Team(CustomBaseModel):
