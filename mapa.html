@@ -1,21 +1,88 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+
+  <!-- Bootstrap CSS
+   ================================================== -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  <!-- Animate CSS
+   ================================================== -->
+  <link rel="stylesheet" href="css/animate.min.css">
+
+  <!-- Font Icons
+   ================================================== -->
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/et-line-font.css">
+
+  <!-- Nivo Lightbox CSS
+   ================================================== -->
+  <link rel="stylesheet" href="css/nivo-lightbox.css">
+  <link rel="stylesheet" href="css/nivo_themes/default/default.css">
+
+  <!-- Owl Carousel CSS
+   ================================================== -->
+    <link rel="stylesheet" href="css/owl.theme.css">
+  <link rel="stylesheet" href="css/owl.carousel.css">
+
+  <!-- Main CSS
+   ================================================== -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Google web font 
+   ================================================== --> 
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:700,400' rel='stylesheet' type='text/css'>
     <style>
        #map {
         height: 400px;
         width: 100%;
        }
     </style>
-  </head>
-  <body>
-    <h3>My Google Maps Demo</h3>
-    <div id="map"></div>
-    <script>
-      function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
+    <script type="text/javascript">
+    var tweets;
+    var latitud;
+    var longitud;
+      function getData() 
+        {
+            jQuery.support.cors = true;
+            try
+            {                         
+             $.ajax({
+                url: "/getubicacion",
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: true,
+                data: {empresa: sessionStorage.empresa},                         
+                type: 'get',
+                crossDomain: true,
+                success: function(response) {
+
+                tweets = response; 
+                latitud = tweets[tweets.length - 1].latitud;
+                longitud = tweets[tweets.length - 1].longitud;
+                initMap(latitud, longitud);
+                  }
+                });          
+             
+            }
+         catch(e)
+            {
+              alert("error : " +  e);
+             }
+        }
+ function initMap(latitud, longitud) {
+  var lati = parseFloat(latitud);
+  var long = parseFloat(longitud);
+        var uluru = {lat: lati, lng: long};
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
+          zoom: 16,
           center: uluru
         });
         var marker = new google.maps.Marker({
@@ -23,9 +90,14 @@
           map: map
         });
       }
+
     </script>
+  </head>
+  <body onload="getData()">
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANoD8ezdMzzRiQBst7SXtX8JxUNA86PHc&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANoD8ezdMzzRiQBst7SXtX8JxUNA86PHc">
     </script>
   </body>
 </html>

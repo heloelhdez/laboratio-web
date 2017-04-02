@@ -1,0 +1,198 @@
+<html>
+
+<head>
+ <title>
+   new - demo
+ </title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+  };
+
+  var entityKey = getUrlParameter('entityKey');
+  var latitud = getUrlParameter('latitud');
+  var longitud = getUrlParameter('longitud');
+  var urlImage = getUrlParameter('urlImage');
+  latitud = latitud.replace(/[+]/g," ");
+  longitud = longitud.replace(/[+]/g," ");
+function recive()
+{ 
+  //console.log(latitud);
+  document.getElementById("latitud").value = latitud;
+  document.getElementById("longitud").value = longitud;
+}
+function UbicacionObject(token, entityKey, latitud, longitud, urlImage){
+   this.token = token;
+    this.entityKey = entityKey;
+    this.latitud = latitud;
+    this.longitud = longitud;
+    this.urlImage = urlImage;
+    this.toJsonString = function () { return JSON.stringify(this); };
+}
+function update() 
+    {
+      
+      
+      var token = sessionStorage.token;
+      var urlImage = sessionStorage.urlImage;
+
+      var latitud = document.getElementById("latitud").value;
+      var longitud = document.getElementById("longitud").value;
+      console.log(longitud);
+      var myData = new UbicacionObject(token, entityKey, latitud, longitud, urlImage);
+      alert(myData.toJsonString());
+      jQuery.support.cors = true;
+      try
+      {                         
+       jQuery.ajax({
+        type: "POST",
+        url: "/_ah/api/ubicacion_api/v1/ubicacion/update",
+        data: myData.toJsonString(),
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (response) {
+                // do something
+                alert (response.code + " " + response.message);
+                 window.location = "/listaubicacion"; 
+           },
+       
+           error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+           }
+      });          
+
+     }
+     catch(e)
+     {
+      alert("error : " +  e);
+    }
+  }
+
+
+
+
+function addUbicacionDemo()
+{
+	try
+  {
+
+    alert("token : " + sessionStorage.token);
+
+  	var myData = new UbicacionObject(
+     $("#latitud").val(), 
+     $("#longitud").val() 
+     );
+  	alert(myData.toJsonString());
+
+  	 jQuery.ajax({
+           type: "POST",
+           url: "http://localhost:8080/_ah/api/ubicacion_api/v1/ubicacion/insert",
+           data: myData.toJsonString(),
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (response) {
+                // do something
+                alert (response.code + " " + response.message);
+           },
+       
+           error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+           }
+
+       });
+
+   }
+   catch(error)
+   {
+    alert(error);
+   }
+
+}
+
+
+function TokenObject() {
+    
+    this.tokenint = sessionStorage.token;
+    this.toJsonString = function () { return JSON.stringify(this); };
+
+};
+
+
+function getUbicacionList()
+{
+  try
+  {
+    //alert("token : " + sessionStorage.token);
+
+    var myData = new TokenObject();
+    
+    alert(myData.toJsonString());
+
+     jQuery.ajax({
+           type: "POST",
+           url: "http://localhost:8080/_ah/api/ubicacion_api/v1/ubicacion/list",
+           data: myData.toJsonString(),
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (response) {
+                // do something
+                
+                alert (response.data);
+           },
+       
+           error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+           }
+
+       });
+
+   }
+   catch(error)
+   {
+    alert(error);
+   }
+
+}
+
+
+</script>
+
+</head>
+<body onload="recive()">
+
+
+<h1> Add demo</h1>
+
+Latitud: <input type="text" id="latitud" value="Renta de computadoras" /> <br>
+Longitud: <input type="text" id="longitud" value="Este ubicacion es el mejor del mundo" />
+
+
+
+<br>
+<button onclick="update()"> Guardar </button> 
+
+<br>
+<br>
+
+<button onclick="getUbicacionList()"> Obtener Lista </button> 
+
+
+</body>
+</html>

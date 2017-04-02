@@ -2,7 +2,7 @@
 
 <head>
  <title>
-   login demo
+   Administrador de web
  </title>
 <meta charset="utf-8">
 
@@ -11,7 +11,7 @@
  <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<!-- jQuery library -->
+<!-- jQuery librarLy -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <!-- Latest compiled JavaScript -->
@@ -23,9 +23,10 @@
 </head>
 <body>
 
-<h1> Login demo</h1>
+<h1> Administrador web</h1>
 <div class="container botonesmenu">
     <br>
+    <hr>
   <div class="row">
         <div class="col-md-3">
         <script type="text/javascript">
@@ -47,6 +48,24 @@
             function goServicios() {
                 window.location = "/actualizaservicio";
             }
+            function goTeams() {
+                window.location = "/listateam";
+            }
+            function goIntroducciones() {
+                window.location = "/listaintroduccion";
+            }
+            function goAcercas() {
+                window.location = "/listaacerca";
+            }
+            function goCaracteristicas() {
+                window.location = "/listacaracteristica";
+            }
+            function goAgregaUbicacion() {
+                window.location = "/adminmapa";
+            }
+            function golistaubicacion() {
+                window.location = "/listaubicacion";
+            }
         </script>
             <a onclick="goTeam();" class="btn btn-primary btn-lg btn-block btn-huge">Agregar integrante al equipo</a>
         </div>
@@ -63,49 +82,35 @@
     <hr>
     <div class="row">
         <div class="col-md-3">
-            <a onclick="goCaracteristica();"  class="btn btn-primary btn-lg btn-block btn-huge">Agregar caracteristica empresa</a>
+            <a onclick="goCaracteristica();"  class="btn btn-primary btn-lg btn-block btn-huge">Agregar caracteristica</a>
         </div>
         <div class="col-md-3">
             <a onclick="goServicios()" class="btn btn-default btn-lg btn-block btn-huge">Editar/eliminar servicios</a>
         </div>
         <div class="col-md-3">
-            <a href="#" class="btn btn-default btn-lg btn-block btn-huge">Test button</a>
+            <a onclick="goTeams()" class="btn btn-default btn-lg btn-block btn-huge">Editar/eliminar integrantes</a>
         </div>
         <div class="col-md-3">
-            <a href="#" class="btn btn-default btn-lg btn-block btn-huge">Test button</a>
+            <a onclick="goIntroducciones()" class="btn btn-default btn-lg btn-block btn-huge">Editar/eliminar introduccion</a>
         </div>
   </div>
     <hr>
     <div class="row">
         <div class="col-md-3">
-            <a href="#" class="btn btn-success btn-lg btn-block btn-huge">Test button</a>
+            <a onclick="goAcercas()" class="btn btn-success btn-lg btn-block btn-huge">Editar/eliminar acerca</a>
         </div>
         <div class="col-md-3">
-            <a href="#" class="btn btn-success btn-lg btn-block btn-huge">Test button</a>
+            <a onclick="goCaracteristicas()" class="btn btn-success btn-lg btn-block btn-huge">Editar/eliminar caracteristicas</a>
         </div>
         <div class="col-md-3">
-            <a href="#" class="btn btn-success btn-lg btn-block btn-huge">Test button</a>
+            <a onclick="goAgregaUbicacion()" class="btn btn-success btn-lg btn-block btn-huge">Agregar ubicacion empresa</a>
         </div>
         <div class="col-md-3">
-            <a href="#" class="btn btn-success btn-lg btn-block btn-huge">Test button</a>
+            <a onclick="golistaubicacion()" class="btn btn-success btn-lg btn-block btn-huge">Editar/eliminar ubicacion</a>
         </div>
     </div>
     <hr>
-    <div class="row">
-        <div class="col-md-3">
-            <a href="#" class="btn btn-info btn-lg btn-block btn-huge">Test button</a>
-        </div>
-        <div class="col-md-3">
-            <a href="#" class="btn btn-info btn-lg btn-block btn-huge">Test button</a>
-        </div>
-        <div class="col-md-3">
-            <a href="#" class="btn btn-info btn-lg btn-block btn-huge">Test button</a>
-        </div>
-        <div class="col-md-3">
-            <a href="#" class="btn btn-info btn-lg btn-block btn-huge">Test button</a>
-        </div>
-    </div>
-    <hr>
+    
 
     <br>
 </div>

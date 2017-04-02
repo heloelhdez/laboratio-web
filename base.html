@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+	<meta charset="utf-8">
 
-  <!-- Template site title
+	<!-- Template site title
    ================================================== -->
-  <title>Principal</title>
+	<title>Principal</title>
 
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="keywords" content="">
-  <meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
 
-  <!-- Bootstrap CSS
+	<!-- Bootstrap CSS
    ================================================== -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 
-  <!-- Animate CSS
+	<!-- Animate CSS
    ================================================== -->
-  <link rel="stylesheet" href="css/animate.min.css">
+	<link rel="stylesheet" href="css/animate.min.css">
 
-  <!-- Font Icons
+	<!-- Font Icons
    ================================================== -->
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/et-line-font.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/et-line-font.css">
 
-  <!-- Nivo Lightbox CSS
+	<!-- Nivo Lightbox CSS
    ================================================== -->
-  <link rel="stylesheet" href="css/nivo-lightbox.css">
-  <link rel="stylesheet" href="css/nivo_themes/default/default.css">
+	<link rel="stylesheet" href="css/nivo-lightbox.css">
+	<link rel="stylesheet" href="css/nivo_themes/default/default.css">
 
-  <!-- Owl Carousel CSS
+	<!-- Owl Carousel CSS
    ================================================== -->
-    <link rel="stylesheet" href="css/owl.theme.css">
-  <link rel="stylesheet" href="css/owl.carousel.css">
+   	<link rel="stylesheet" href="css/owl.theme.css">
+	<link rel="stylesheet" href="css/owl.carousel.css">
 
-  <!-- Main CSS
+	<!-- Main CSS
    ================================================== -->
-  <link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style.css">
 
-  <!-- Google web font 
-   ================================================== --> 
-  <link href='https://fonts.googleapis.com/css?family=Montserrat:700,400' rel='stylesheet' type='text/css'>
+	<!-- Google web font 
+   ================================================== -->	
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:700,400' rel='stylesheet' type='text/css'>
 
 <script>
 // contact
@@ -54,21 +54,23 @@ function TeamObject(myNombre, myPuesto) {
     this.toJsonString = function () { return JSON.stringify(this); };
 
 };
+
+
 function addTeamDemo()
 {
-  try
+	try
   {
 
 
     alert("token : " + sessionStorage.token);
 
-    var myData = new TeamObject(
+  	var myData = new TeamObject(
      $("#nombre").val(), 
      $("#puesto").val() 
      );
-    alert(myData.toJsonString());
+  	alert(myData.toJsonString());
 
-     jQuery.ajax({
+  	 jQuery.ajax({
            type: "POST",
            url: "/_ah/api/team_api/v1/team/insert",
            data: myData.toJsonString(),
@@ -124,8 +126,8 @@ function getTeamList()
            success: function (response) {
                 // do something
                 
-                window.location = "/menu";
                 alert (response.data);
+                window.location = "/menu"
            },
        
            error: function (error) {            
@@ -192,12 +194,14 @@ function uploadDemo()
       </div>
 
       <div class="jumbotron">
-    
+        
+
+<h1> Agrega integrante</h1>
 
 nombre: <input type="text" id="nombre" value="adsoft" /> <br>
 puesto: <input type="text" id="puesto" value="CEO" />
 
- <div>
+ <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 text-center">
               <label for="exampleInputEmail1"><i>Foto</i></label>
                <br>
                <img  src="" alt="Image preview" id="preview" style="width:128px;height:128px;" >
@@ -215,6 +219,11 @@ puesto: <input type="text" id="puesto" value="CEO" />
 
 <button onclick="getTeamList()"> Obtener Lista </button> 
       </div>
+
+
+      <footer class="footer">
+        <p>&copy; Company 2017</p>
+      </footer>
 
     </div> <!-- /container -->
 

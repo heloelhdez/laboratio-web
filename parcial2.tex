@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Parcial 2}
+\author{Luis Donaldo Acosta Salinas A01323484\\ Rubén Silviano Cárdenas Saavedra A01323333\\ Heloel Hernández Santos A07007415 }
+\date{\textbf {Fecha: 31 de marzo 2017}}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Este proyecto tiene como objetivo el desarrollo de un sistema web multiempresa. En la forma en que cada empresa puede desarrollar una página web con las características únicas de la misma empresa.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.2]{intro.png}
+\caption{Sistema en producción}
+\label{fig:admin}
+\end{figure}
+
+\section{Desarollo}
+Para el desarrollo de este sistema, hemos utilizado la plantilla Galaxy, la cual contiene elementos de CSS, HTML, JavaScript entre otros. Se ha utilizado Django que usa Python como lenguaje de desarrollo.Estelenguaje se ha utilizado para el manejo de los models, los cuales representan nuestras clases, manejo de messages, el principal, que es el main.py el cual tiene los manejadores (handlers) que interactúan con el sistema y por último restapi el cual con el uso de librerías nos permite realizar y completar el CRUD (Create, Read, Update and Delete).
+\\  \\ \\ \\ \\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.2]{python.png}
+\caption{Archivos py}
+\label{fig:archivos}
+\end{figure}
+\\
+Para la realización de esto, se controla mediante el session Token, para saber en dónde se realizaran los cambios. Se tiene una vista de administrador el que nos permite cumplir con el CRUD de los servicios. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.2]{admin.png}
+\caption{Vista del administrador}
+\label{fig:admin}
+\end{figure}
+
+\\
+El cumplimiento del CRUD lo realizamos por empresa, por lo que cadauna de ellas tendrá su token con esto garantizamos confidencialidad de la información, por lo que cada empresa solo puede agregar, modificar o eliminar sobre sus elementos.
+\\\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.3]{Modificar_eliminar.png}
+\caption{Editar o eliminar elemento}
+\label{fig:crud}
+\end{figure}
+
+Al agregar un nuevo elemento, por ejemplo, en integrante de equipo, cada uno tendrá un entity key, con el cual podemos diferenciar cada elemento en una lista, por lo que si queremos hacer una actualización o eliminación de un elemento, mediante si entity key llamamos a la función correspondiente y se modificará solo ese elemento. 
+\\\\
+Para lograrlo y visualizarlo en una vista de {\bfseries HTML} se hace uso de {\bfseries Ajax}, el cual nos permite recibir variables para hacer la actualización dinámica en una página sin necesidad de cargar toda cada vez, solo una parte de la misma. 
+\\\\
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.2]{ajax.png}
+\caption{Sistema en producción}
+\label{fig:admin}
+\end{figure}
+
+
+
+\section{Conclusión}
+Con este proyecto hemos aprendido el desarrollo no convecional de páginas web mediante el uso de base de datos no estructuradas, además del uso de un servicio tal como \textit{google-app-engine}, todo lo anterior combinado con un lenguaje como python, los cual nos da una excelente integración de los elementos gracias a las lirerías que podemos manejar. 
+\\\\
+También cabe hacer mención de las dificultades que tuvimos durante la realización del proyecto, debido al desconocimiento de este tipo de desarrollo y del manejo de los archivos necesarios para que todo funcionara, lo cual nos llevó a tardar más tiempo de lo que en su momento planeamos. 
+\\\\
+Si bien sabemos de antemano sabemos que una planeación en tiempo no es necesariamente correcta, no creímos tuvieramos un delay tan alto, esto debido al desconocimiento de nuestra parte en este tipo de patrones de desarrollo y lenguaje. Sin embargo, se nos hizo interesante y retador enfrentarnos a esto, ya que nos da las herramientas necesarias para la implementacion de futuros proyectos siempre y cuando se adapten a este tipo de desarrollo. 
+
+
+\bibliographystyle{plain}
+\bibliography{referencias}Pippi Massimiliano. (2015). Getting started. En Python for Google App Engine(1-71). Birminghan-Mumbai: Packt Publishing Ltd.. 
+\end{document}

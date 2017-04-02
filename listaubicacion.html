@@ -5,7 +5,7 @@
 
   <!-- Template site title
   ================================================== -->
-  <title>Galaxy - Responsive Business template</title>
+  <title>Ubicacion</title>
 
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,7 +57,7 @@
       try
       {                         
        $.ajax({
-        url: "/getteam",
+        url: "/getubicacion",
         dataType: 'json',
         cache: false,
         contentType: false,
@@ -76,8 +76,8 @@
             
             
             //console.log(JSON.stringify(j));
-            var nombre = "<div class='col-md-6 col-sm-6'><div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div><div class='media-body'><h3 class='media-heading'>"+tweets[i].nombre+"</h3><p>"+tweets[i].puesto+"</p></div></div><div class='col-md-6 col-sm-6'><form action='/editateam' method='get'><input type='text' name='entityKey' value='"+tweets[i].entityKey+"' hidden><input type='text' name='puesto' value='"+tweets[i].puesto+"' hidden><input type='text' name='urlImage' value='"+tweets[i].urlImage+"' hidden><input type='text' name='nombre' value='"+tweets[i].nombre+"' hidden><button class='glyphicon glyphicon-pencil btn btn-primary btn-lg btn-block btn-huge' ></button></div></form><div class='col-md-6 col-sm-6'><a class=' glyphicon glyphicon-trash btn btn-warning  btn-lg btn-block btn-huge' onclick='confirmDeletion(this.id)' id='"+tweets[i].entityKey+"'" + "></a></div></div>";
-            $("#divTeam").append(nombre);
+            var latitud = "<div class='col-md-6 col-sm-6'><div class='media'><div class='media-object pull-left'><i class='icon icon-laptop wow fadeInUp' data-wow-delay='0.9s'></i></div><div class='media-body'><h3 class='media-heading'>"+tweets[i].latitud+"</h3><p>"+tweets[i].longitud+"</p></div></div><div class='col-md-6 col-sm-6'><form action='/editaubicacion' method='get'><input type='text' name='entityKey' value='"+tweets[i].entityKey+"' hidden><input type='text' name='longitud' value='"+tweets[i].longitud+"' hidden><input type='text' name='urlImage' value='"+tweets[i].urlImage+"' hidden><input type='text' name='latitud' value='"+tweets[i].latitud+"' hidden><button class='glyphicon glyphicon-pencil btn btn-primary btn-lg btn-block btn-huge' ></button></div></form><div class='col-md-6 col-sm-6'><a class=' glyphicon glyphicon-trash btn btn-warning  btn-lg btn-block btn-huge' onclick='confirmDeletion(this.id)' id='"+tweets[i].entityKey+"'" + "></a></div></div>";
+            $("#divUbicacion").append(latitud);
             
           };
 
@@ -92,7 +92,7 @@
     }
   }
 function confirmDeletion(id) {
-      var x = confirm("Quieres eliminar el team?");
+      var x = confirm("Quieres eliminar el ubicacion?");
       if (x)
         deleteGuest(id);
       else
@@ -112,14 +112,14 @@ function confirmDeletion(id) {
 
       jQuery.ajax({
          type: "POST",
-         url: "/_ah/api/team_api/v1/team/delete",
+         url: "/_ah/api/ubicacion_api/v1/ubicacion/delete",
          data: myData.toJsonString(),
          contentType: "application/json; charset=utf-8",
          dataType: "json",
          success: function (response) {
               // do something
               alert (response.message);
-              window.location = "/listateam";
+              window.location = "/listaubicacion";
          },
 
          error: function (error) {            
@@ -147,7 +147,7 @@ function confirmDeletion(id) {
 
      jQuery.ajax({
      type: "POST",
-     url: "/_ah/api/team_api/v1/team/delete",
+     url: "/_ah/api/ubicacion_api/v1/ubicacion/delete",
      data: myData.toJsonString(),
      contentType: "application/json; charset=utf-8",
      dataType: "json",
@@ -179,22 +179,22 @@ function confirmDeletion(id) {
 
   };
 
-  function addTeamDemo()
+  function addUbicacionDemo()
   {
     try
     {
 
       alert("token : " + sessionStorage.token);
 
-      var myData = new TeamObject(
-       $("#nombre").val(), 
-       $("#puesto").val() 
+      var myData = new UbicacionObject(
+       $("#latitud").val(), 
+       $("#longitud").val() 
        );
       alert(myData.toJsonString());
 
       jQuery.ajax({
        type: "POST",
-       url: "/_ah/api/team_api/v1/team/insert",
+       url: "/_ah/api/ubicacion_api/v1/ubicacion/insert",
        data: myData.toJsonString(),
        contentType: "application/json; charset=utf-8",
        dataType: "json",
@@ -227,7 +227,7 @@ function confirmDeletion(id) {
   };
 
 
-  function getTeamList()
+  function getUbicacionList()
   {
     try
     {
@@ -241,7 +241,7 @@ function confirmDeletion(id) {
 
     jQuery.ajax({
      type: "POST",
-     url: "/_ah/api/team_api/v1/team/list",
+     url: "/_ah/api/ubicacion_api/v1/ubicacion/list",
      data: myData.toJsonString(),
      contentType: "application/json; charset=utf-8",
      dataType: "json",
@@ -274,13 +274,10 @@ function confirmDeletion(id) {
 <div class="container">
       
         
-        <h3 >Edita miembro</h3>
-
+        <h3 >Edita Ubicacion</h3>
       
-  <div class="col-md-6 col-sm-12" id="divTeam">
+  <div class="col-md-6 col-sm-12" id="divUbicacion">
 
-       </div>
-
-    </div> <!-- /container -->
+    </div></div>
   </body>
   </html>

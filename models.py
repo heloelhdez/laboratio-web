@@ -97,6 +97,23 @@ if validarEmail("root@kubeet.com") == False:
     )
     admin.hash_password()
     admin.put()
+if validarEmail("root@cuates.com") == False:
+    empresaAdmin = Empresa(
+      codigo_empresa = 'cuates',
+      nombre_empresa="cuates sa de cv",
+     
+    )
+    empresaAdmin.put()
+    keyadmincol = ndb.Key(urlsafe=empresaAdmin.entityKey)
+    admin = Usuarios(
+          empresa_key = keyadmincol,
+          email="root@cuates.com",
+          password="cuates",
+       
+    )
+    admin.hash_password()
+    admin.put()
+
 
 ######### Team #########
 

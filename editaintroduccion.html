@@ -1,0 +1,245 @@
+<html>
+
+<head>
+ <title>
+   new - demo
+ </title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+  };
+
+  var entityKey = getUrlParameter('entityKey');
+  var nombre = getUrlParameter('nombre');
+  var descripcion = getUrlParameter('descripcion');
+  var urlImage = getUrlParameter('urlImage');
+  nombre = nombre.replace(/[+]/g," ");
+  descripcion = descripcion.replace(/[+]/g," ");
+function recive()
+{ 
+  //console.log(nombre);
+  document.getElementById("nombre").value = nombre;
+  document.getElementById("descripcion").value = descripcion;
+  document.getElementById("preview").src = urlImage;
+  document.getElementById("url_photo").value = urlImage;
+}
+function IntroduccionObject(token, entityKey, nombre, descripcion, urlImage){
+   this.token = token;
+    this.entityKey = entityKey;
+    this.nombre = nombre;
+    this.descripcion = descripcion;
+    this.urlImage = urlImage;
+    this.toJsonString = function () { return JSON.stringify(this); };
+}
+function update() 
+    {
+      
+      
+      var token = sessionStorage.token;
+      var urlImage = sessionStorage.urlImage;
+
+      var nombre = document.getElementById("nombre").value;
+      var descripcion = document.getElementById("descripcion").value;
+      var urlImage =  document.getElementById("url_photo").value; 
+      console.log(descripcion);
+      var myData = new IntroduccionObject(token, entityKey, nombre, descripcion, urlImage);
+      alert(myData.toJsonString());
+      jQuery.support.cors = true;
+      try
+      {                         
+       jQuery.ajax({
+        type: "POST",
+        url: "/_ah/api/introduccion_api/v1/introduccion/update",
+        data: myData.toJsonString(),
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (response) {
+                // do something
+                alert (response.code + " " + response.message);
+                 window.location = "/listaintroduccion"; 
+           },
+       
+           error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+           }
+      });          
+
+     }
+     catch(e)
+     {
+      alert("error : " +  e);
+    }
+  }
+
+
+
+
+function addIntroduccionDemo()
+{
+	try
+  {
+
+    alert("token : " + sessionStorage.token);
+
+  	var myData = new IntroduccionObject(
+     $("#nombre").val(), 
+     $("#descripcion").val() 
+     );
+  	alert(myData.toJsonString());
+
+  	 jQuery.ajax({
+           type: "POST",
+           url: "http://localhost:8080/_ah/api/introduccion_api/v1/introduccion/insert",
+           data: myData.toJsonString(),
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (response) {
+                // do something
+                alert (response.code + " " + response.message);
+           },
+       
+           error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+           }
+
+       });
+
+   }
+   catch(error)
+   {
+    alert(error);
+   }
+
+}
+
+
+function TokenObject() {
+    
+    this.tokenint = sessionStorage.token;
+    this.toJsonString = function () { return JSON.stringify(this); };
+
+};
+
+
+function getIntroduccionList()
+{
+  try
+  {
+    //alert("token : " + sessionStorage.token);
+
+    var myData = new TokenObject();
+    
+    alert(myData.toJsonString());
+
+     jQuery.ajax({
+           type: "POST",
+           url: "http://localhost:8080/_ah/api/introduccion_api/v1/introduccion/list",
+           data: myData.toJsonString(),
+           contentType: "application/json; charset=utf-8",
+           dataType: "json",
+           success: function (response) {
+                // do something
+                
+                alert (response.data);
+           },
+       
+           error: function (error) {            
+                // error handler
+                alert("error :" + error.message)
+           }
+
+       });
+
+   }
+   catch(error)
+   {
+    alert(error);
+   }
+
+}
+
+function uploadDemo()
+
+{
+
+    var file_data = $("#uploaded_file").prop("files")[0];
+    var form_data = new FormData();
+    form_data.append("uploaded_file", file_data)
+
+    jQuery.support.cors = true;
+    try
+    {
+     $.ajax({
+                url: "http://localhost:8080/up",
+                dataType: 'text',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                crossDomain: true,
+                success: function(response){
+
+                                document.getElementById("preview").src=response;
+
+                                sessionStorage.urlImage = response;
+
+                                document.getElementById("url_photo").value = response;
+                }
+      });
+    }
+    catch(e)
+    {
+      alert("error : " +  e);
+     }
+}
+
+
+</script>
+
+</head>
+<body onload="recive()">
+
+
+<h1> Add demo</h1>
+
+Nombre: <input type="text" id="nombre" value="Renta de computadoras" /> <br>
+Descripcion: <input type="text" id="descripcion" value="Este introduccion es el mejor del mundo" />
+
+ <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 text-center">
+              <label for="exampleInputEmail1"><i>Foto</i></label>
+               <br>
+               <img  src="" alt="Image preview" id="preview" style="width:128px;height:128px;" >
+               <br>
+               <input type="text" id="url_photo">
+               <br><input onchange="uploadDemo()" type="file"  id="uploaded_file" name="uploaded_file">
+              </div>
+
+
+<br>
+<button onclick="update()"> Guardar </button> 
+
+<br>
+<br>
+
+<button onclick="getIntroduccionList()"> Obtener Lista </button> 
+
+
+</body>
+</html>
