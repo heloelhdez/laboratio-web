@@ -109,7 +109,7 @@ function getData2()
           tweets.forEach(function (tweet) 
           {
              var nombre = "<div class='col-md-offset-2 col-md-8 col-sm-12'>"+
-             "<h1>Introduction</h1>"+
+             "<h1>Introduccion</h1>"+
              "<h2 class='wow bounceIn'>" + tweet.nombre + "</h2>"+"<p class='wow fadeIn' data-wow-delay='0.3s'>" + tweet.descripcion + "</p><a href='#about' class='btn btn-default section-btn smoothScroll wow fadeInUp' data-wow-delay='0.6s'>Conoce mas</a><a href='#portfolio' class='btn btn-danger section-btn smoothScroll wow fadeInUp hidden-xs' data-wow-delay='0.6s'>Ver portafolio</a></div>";
                        $("#divIntroduccion").append(nombre);
                 });
@@ -144,7 +144,7 @@ function getData3()
           tweets.forEach(function (tweet) 
           {
 
-             var nombre = "<div class='col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 text-center'><div class='section-title'><h5>ABOUT US</h5><h3>"+tweet.nombre+"</h3><p>"+tweet.descripcion+"</p></div></div>";
+             var nombre = "<div class='col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 text-center'><div class='section-title'><h5>Sobre nostros</h5><h3>"+tweet.nombre+"</h3><p>"+tweet.descripcion+"</p></div></div>";
              $("#divAcerca").append(nombre);
                 });
 	   
@@ -193,7 +193,7 @@ function getData4()
       alert("error : " +  e);
      }
 }
-function getData() 
+function getData5() 
 {
 
     jQuery.support.cors = true;
@@ -318,14 +318,6 @@ function enviaCorreo() {
 	<div class="container">
 		<div class="row" id="divIntroduccion">
 
-			<div class="col-md-offset-2 col-md-8 col-sm-12">
-				<h1>Introduction</h1>
-				<h2 class="wow bounceIn">Galaxy Studio Agency</h2>
-				<p class="wow fadeIn" data-wow-delay="0.3s">We are talented people who around the world and create stunning things on web and graphics. We produce web designs, brand & identity, graphic design and interactive UX / UI.</p>
-				<a href="#about" class="btn btn-default section-btn smoothScroll wow fadeInUp" data-wow-delay="0.6s">LEARN MORE</a>
-				<a href="#portfolio" class="btn btn-danger section-btn smoothScroll wow fadeInUp hidden-xs" data-wow-delay="0.6s">VIEW PORTFOLIO</a>
-			</div>
-
 		</div>
 	</div>		
 </section>
@@ -339,21 +331,11 @@ function enviaCorreo() {
 
 			<!-- Section title
 			================================================== -->
-			<div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 text-center">
-				<div class="section-title">
-					<h5>ABOUT US</h5>
-					<h3>We create stunning things on web and graphics. We produce web designs, brand & identity, graphic design and interactive UX / UI.</h3>
-					<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur dolor libero sodales vitae elit massa. Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque.</p>
-				</div>
-			</div>	
+			
 		</div>
 		<div class="row" id="divCaracteristica">
 
-			<div class="col-md-4 col-sm-4">
-				<i class="icon icon-laptop wow fadeInUp" data-wow-delay="0.9s"></i>
-				<h3>Fully Responsive</h3>
-				<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque.</p>
-			</div>
+			
 
 		</div>
 	</div>
@@ -406,30 +388,7 @@ function enviaCorreo() {
 
 			<div class="col-md-12 col-sm-12"></div>
 
-			<div class="col-md-3 col-sm-3 wow fadeInUp" data-wow-delay="0.6s">
-				<img src="images/team-img1.jpg" class="img-responsive img-circle" alt="team img">
-				<h3>Jonny Dennis</h3>
-				<h5>Creative Director</h5>
-				<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus.</p>
-			</div>
-			<div class="col-md-3 col-sm-3 wow fadeInUp" data-wow-delay="0.6s">
-				<img src="images/team-img2.jpg" class="img-responsive img-circle" alt="team img">
-				<h3>Mark Genius</h3>
-				<h5>Project Manager</h5>
-				<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus.</p>
-			</div>
-			<div class="col-md-3 col-sm-3 wow fadeInUp" data-wow-delay="0.6s">
-				<img src="images/team-img3.jpg" class="img-responsive img-circle" alt="team img">
-				<h3>James David</h3>
-				<h5>UX Designer</h5>
-				<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus.</p>
-			</div>
-			<div class="col-md-3 col-sm-3 wow fadeInUp" data-wow-delay="0.6s">
-				<img src="images/team-img4.jpg" class="img-responsive img-circle" alt="team img">
-				<h3>Simon Leo</h3>
-				<h5>Designer</h5>
-				<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus.</p>
-			</div>
+			
 
 		</div>
 	</div>
@@ -488,167 +447,6 @@ function enviaCorreo() {
 
 				
 
-			</div>
-
-
-		</div>
-	</div>
-</section>
-
-
-<!-- portfolio section
-================================================== -->
-<section id="portfolio" class="parallax-section">
-	<div class="container">
-		<div class="row">
-
-			<!-- Section title
-			================================================== -->
-			<div class="col-md-12 col-sm-12 text-center">
-				<div class="section-title wow bounceIn">
-					<h5>MY PORTFOLIO</h5>
-				</div>
-			</div>	
-
-			<div class="col-md-4 col-sm-4">
-				<div class="portfolio-des">
-					<a href="images/portfolio-img1.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img1.jpg" alt="portfolio img"></a>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-4">
-				<div class="portfolio-des">
-					<a href="images/portfolio-img2.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img2.jpg" alt="portfolio img"></a>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-4">
-				<div class="portfolio-des">
-					<a href="images/portfolio-img3.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img3.jpg" alt="portfolio img"></a>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-4">
-				<div class="portfolio-des">
-					<a href="images/portfolio-img4.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img4.jpg" alt="portfolio img"></a>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-4">
-				<div class="portfolio-des">
-					<a href="images/portfolio-img5.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img5.jpg" alt="portfolio img"></a>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-4">
-				<div class="portfolio-des">
-					<a href="images/portfolio-img6.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img6.jpg" alt="portfolio img"></a>
-				</div>
-			</div>
-
-			
-		</div>
-	</div>
-</section>
-
-
-<!-- price section
-================================================== -->
-<section id="price">
-	<div class="container">
-		<div class="row">
-
-			<!-- Section title
-			================================================== -->
-			<div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10">
-				<div class="section-title">
-					<h5 class="wow bounceIn">PRICE PACKAGE</h5>
-				</div>
-			</div>	
-			<div class="col-md-4 col-sm-6">
-				<div class="price-plan">
-					<div class="price-title">
-						<i class="icon icon-bike"></i>
-						<h3>Freelancer</h3>
-					</div>
-					<div class="price-month">
-						<h4>$320 / monthly</h4>
-					</div>
-					<p>Free 25 templates</p>
-					<p>10 GB storage</p>
-					<p>lifetime support</p>
-					<button class="btn btn-default section-btn">MAKE PLAN</button>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.6s">
-				<div class="price-plan price-plan-default">
-					<div class="price-title">
-						<i class="icon icon-download"></i>
-						<h3>Personal</h3>
-					</div>
-					<div class="price-month">
-						<h4>$320 / monthly</h4>
-					</div>
-					<p>Free 25 templates</p>
-					<p>10 GB storage</p>
-					<p>lifetime support</p>
-					<button class="btn btn-default section-btn">CHOOSE PLAN</button>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-10">
-				<div class="price-plan">
-					<div class="price-title">
-						<i class="icon icon-target"></i>
-						<h3>Professional</h3>
-					</div>
-					<div class="price-month">
-						<h4>$420 / monthly</h4>
-					</div>
-					<p>Free 25 templates</p>
-					<p>10 GB storage</p>
-					<p>lifetime support</p>
-					<button class="btn btn-default section-btn">MAKE PLAN</button>
-				</div>
-			</div>
-
-		</div>
-	</div>
-</section>
-
-
-<!-- Testimonial section
-================================================== -->
-<section id="testimonial" class="parallax-section">
-	<div class="container">
-		<div class="row">
-
-			<!-- Service Owl Carousel section
-			================================================== -->
-			<div id="owl-testimonial" class="owl-carousel">
-
-				<div class="item">
-					<div class="row">
-						<div class="col-md-offset-3 col-md-6">
-							<img src="images/testimonial-img1.jpg" class="img-responsive img-circle" alt="testimonial img">
-							<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur dolor libero sodales vitae elit massa.</p>
-							<h2>Designer at Google</h2>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="row">
-						<div class="col-md-offset-3 col-md-6">
-							<img src="images/testimonial-img2.jpg" class="img-responsive img-circle" alt="testimonial img">
-							<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur dolor libero sodales vitae elit massa.</p>
-							<h2>UX Designer at facebook</h2>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="row">
-						<div class="col-md-offset-3 col-md-6">
-							<img src="images/testimonial-img3.jpg" class="img-responsive img-circle" alt="testimonial img">
-							<p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur dolor libero sodales vitae elit massa.</p>
-							<h2>Creative Director at apple</h2>
-						</div>
-					</div>
-				</div>
-				
 			</div>
 
 
@@ -720,9 +518,16 @@ function enviaCorreo() {
 					<div class="media-object pull-left">
 						<i class="icon icon-browser"></i>
 					</div>
-					<div class="media-body">
-						<h3 class="media-heading">ADDRESS</h3>
-						<p> + 0034 Rose, twitter Inc.</p>
+					<div class="col-md-6 col-sm-6">
+						<h3 class="media-heading">Ubicacion</h3>
+						<script type="text/javascript">
+							function goMapa() {
+                window.location = "/mapa";
+            }
+						</script>
+						 <div class="col-md-6 col-sm-6">
+            <a onclick="goMapa();" class=" btn btn-primary ">Ver en mapa</a>
+        </div>
 					</div>
 				</div>
 			</div>
@@ -734,28 +539,6 @@ function enviaCorreo() {
 
 <!-- Footer section
 ================================================== -->
-<footer>
-	<!-- google map -->
-		
-			<div id="map-canvas"></div>
-		
-		<script>
-      function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
-    </script>
-   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANoD8ezdMzzRiQBst7SXtX8JxUNA86PHc&callback=initMap">
-    </script>
-</footer>
 
 
 <!-- copyright section
